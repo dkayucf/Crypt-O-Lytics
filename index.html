@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My JavaScript App</title>
+  <link rel="stylesheet" href="assets/css/reset.css" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <script defer src="assets/js/dependencies/fontawesome-all.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="container-fluid">
+  
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-12">
+               <div class="jumbotron">
+                  <h1 class="display-4 text-center">AWESOME HEADING GOES HERE</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-md-5 border p-2 d-flex justify-content-center align-items-center">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <h5>Tech Stocks<i class="fas fa-chart-line ml-3"></i></h5>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                        <select class="custom-select custom-select-sm my-2 techCompSelect">
+                            <option selected disabled hidden>Select Tech Company...</option>
+                            <option value="nvda">Nvidia</option>
+                            <option value="amd">AMD</option>
+                            <option value="intc">Intel</option>
+                            <option value="mu">Micron</option>
+                            <option value="tsmc">Taiwan Semiconductor</option>
+                        </select>
+                        <select class="custom-select custom-select-sm my-2 mb-3 techTimeFrame">
+                            <option selected disabled hidden>Select time frame...</option>
+                            <option value="1y">One Year</option>
+                            <option value="6m">6 Months</option>
+                            <option value="3m">3 Months</option>
+                            <option value="1m">1 Month</option>
+                            <option value="1d">day</option>
+                        </select>
+                        <div class="container weightAvgInput" id="stockWeightAvg">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                    <label for="">Label 1</label>
+                                    <input type="number" class='form-control' id="">
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Label 2</label>
+                                        <input type="number" class='form-control' id="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Label 3</label>
+                                        <input type="number" class='form-control' id="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Label 4</label>
+                                        <input type="number" class='form-control' id="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-sm drawStockChart">Chart</button>
+                        <label><input type="checkbox" id="stockWeightAvgCheck" class="ml-4"> Weighted Average</label>  
+                      </div>
+                  </div>
+              </div>
+               
+          </div>
+          <div class="col-md-5  border p-2 d-flex justify-content-center align-items-center ml-4">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h5>Cryptocurrency<i class="fab fa-bitcoin ml-3"></i></h5>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-12">
+                        <select class="custom-select custom-select-sm my-2">
+                            <option selected disabled hidden>Select Cryptocurrency...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                        </select>
+                        <select class="custom-select custom-select-sm my-2 mb-3">
+                            <option selected disabled hidden>Select time frame...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                        </select>
+                        <div class="container weightAvgInput" id="stockWeightAvg">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                    <label for="">Label 1</label>
+                                    <input type="number" class='form-control' id="">
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Label 2</label>
+                                        <input type="number" class='form-control' id="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Label 3</label>
+                                        <input type="number" class='form-control' id="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Label 4</label>
+                                        <input type="number" class='form-control' id="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm">Chart</button> 
+                        <label><input type="checkbox" id="stockWeightAvgCheck" class="ml-4"> Weighted Average</label> 
+                     </div>
+                 </div>
+             </div>
+              
+          </div>
+      </div>
+  </div>
+
+  
+  
+  
+  
+    <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="assets/js/dependencies/plotly-latest.min.js"></script>
+    <script src="assets/js/modules/APICtrl.js"></script>
+    <script src="assets/js/modules/ItemCtrl.js"></script>
+    <script src="assets/js/modules/UICtrl.js"></script>
+    <script src="assets/js/modules/AppCtrl.js"></script>
+</body>
+</html>
