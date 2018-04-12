@@ -1,6 +1,6 @@
 
 //==============APP CONTROLLER=================
-const AppCtrl = (function(APICtrl, ItemCtrl, UICtrl){
+const AppCtrl = (function(ItemCtrl, UICtrl){
     //Get UI selectors
     const UISelectors = UICtrl.getSelectors();
 
@@ -18,8 +18,18 @@ const AppCtrl = (function(APICtrl, ItemCtrl, UICtrl){
     
     const drawStockChart = function(){
         
-        var getStockSelects = UICtrl.getStockSelects();
-        console.log(getStockSelects);
+        const getStockSelects = UICtrl.getStockSelects();
+        
+        
+        const url = `https://api.iextrading.com/1.0/stock/${getStockSelects.stockSymbol}/chart/${getStockSelects.stockTimeFrame}`;
+        
+        $.ajax({
+             url: url,
+             method: 'GET'
+           }).then(function(response) {
+             ItemCtrl.filterStockData();
+           });
+        
     }
     
     //Public Methods
@@ -30,6 +40,6 @@ const AppCtrl = (function(APICtrl, ItemCtrl, UICtrl){
         }
     }
 
-})(APICtrl, ItemCtrl, UICtrl);
+})(ItemCtrl, UICtrl);
 
 AppCtrl.init();
