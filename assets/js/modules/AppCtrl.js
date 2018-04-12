@@ -26,8 +26,8 @@ const AppCtrl = (function(ItemCtrl, UICtrl){
         $.ajax({
              url: url,
              method: 'GET'
-           }).then(function(response) {
-             ItemCtrl.filterStockData();
+           }).then(function(stockData) {
+             ItemCtrl.filterStockData(stockData);
            });
         
     }
