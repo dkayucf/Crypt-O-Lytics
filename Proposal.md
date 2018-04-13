@@ -9,14 +9,12 @@ CryptKeepers
 * Christine Pablo
 * Darren Kay
 * Kevin Murtaugh
-* Nick Romano
 
 ### Rough Breakdown of Tasks
 
 * Christine (Team Lead/Front End)
 * Darren (Backend)
 * Kevin (Front End/Back End Support)
-* Nick (Support)
 
 ### Project Title
 
