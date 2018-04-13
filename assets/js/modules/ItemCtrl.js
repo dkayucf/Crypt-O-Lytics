@@ -9,9 +9,18 @@ const ItemCtrl = (function(){
             
            //check if stock select is stock weight average
         if(getStockSelects.stockSymbol == 'stockWeightAvg'){
-           
+           //console.log(stockData);
             for(let stock in stockData){
-                console.log(stockData[stock].chart.map(stock=> stock.date));
+                
+                /******************KEVIN THIS IS WHERE YOU SHOULD START**************************************/
+                console.log(stockData[stock].chart[0].close);
+                console.log(stockData[stock].chart.map(stock=> stock.close));
+                
+                const closingRatio = 1 / stockData[stock].chart[0].close;
+                const openRatio = 1 / stockData[stock].chart[0].open;
+                const highRatio = 1 / stockData[stock].chart[0].high;
+                const lowRatio = 1 / stockData[stock].chart[0].low;
+                console.log(`Closing: ${closingRatio}, Open: ${openRatio}, High: ${highRatio}, Low: ${lowRatio}`);
             }
             
    
