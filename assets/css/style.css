@@ -15,6 +15,14 @@
     display: none;
 }
 
+#currChartPlot{
+    height: 500px;
+}
+
+#currChartCard{
+    display: none;
+}
+
 .taiwanLabel{
     white-space: nowrap
 }

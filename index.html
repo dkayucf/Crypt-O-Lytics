@@ -106,7 +106,8 @@
                                 <option value="ETH">Ethereum</option>
                                 <option value="XRP">Ripple</option>
                                 <option value="BCH">Bitcoin Cash</option>
-                                <option value="Cardano">ADA</option>
+                                <option value="XLM">Stellar</option>
+                                <option value="currWeightAvg">Weighted Average</option>
                             </select>
                             <select class="custom-select custom-select-sm my-2 cryptoTimeFrame" required>
                                 <option selected disabled hidden>Select time frame...</option>
@@ -114,7 +115,7 @@
                                 <option value="6MTH">6 Months</option>
                                 <option value="3MTH">3 Months</option>
                                 <option value="1MTH">1 Month</option>
-                                <option value="1DAY">day</option>
+                                <option value="1DAY">Day</option>
                             </select>
                             <select class="custom-select custom-select-sm my-2 cryptoChartStyle" required>
                                 <option selected disabled hidden>Select Chart Style...</option>
@@ -150,7 +151,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-warning btn-sm">Chart</button> 
+                            <button class="btn btn-warning btn-sm drawCurrChart">Chart</button> 
                          </div>
                      </div>
                  </div>
@@ -167,8 +168,8 @@
                   </div>
               </div>
               <div class="col-md-5 p-0">
-                  <div class="card" id='stockChartCard'>
-                      <div class="card-body p-0" id="stockChartPlot">
+                  <div class="card" id='currChartCard'>
+                      <div class="card-body p-0" id="currChartPlot">
 
                       </div>
                   </div>

@@ -4,7 +4,7 @@ const UICtrl = (function(){
     const UISelectors = {
         //Buttons
         drawStockChartBtn: '.drawStockChart',
-        
+        drawCurrChartBtn: '.drawCurrChart',
         
         //Inputs
         stockWeightAvg: '#stockWeightAvg',
@@ -21,6 +21,7 @@ const UICtrl = (function(){
         
         //Divs
         stockChartCard: '#stockChartCard',
+        currChartCard: '#currChartCard'
         
     }
     
@@ -38,6 +39,20 @@ const UICtrl = (function(){
                 stockSymbol: stockSymbolSelectValue,
                 stockTimeFrame: stockTimeFrameValue,
                 stockName: stockName
+            }
+        },
+        getCurrChart: function(){
+            const cryptoCurrSelect = document.querySelector(UISelectors.cryptoCurrSelect);
+            const cryptoSelectValue = cryptoCurrSelect.options[cryptoCurrSelect.selectedIndex].value;
+            const currName = cryptoCurrSelect.options[cryptoCurrSelect.selectedIndex].textContent;
+
+            const cryptoTimeFrame = document.querySelector(UISelectors.cryptoTimeFrame);
+            const cryptoTimeFrameValue = cryptoTimeFrame.options[cryptoTimeFrame.selectedIndex].value;
+
+            return {
+                cryptoCurrency: cryptoSelectValue,
+                cryptoCurrTimeFrame: cryptoTimeFrameValue,
+                cryptoName: currName
             }
         },
         getChartStyle:(selector)=>{
