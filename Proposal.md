@@ -1,8 +1,8 @@
-# Bitcoin Bits n' Pieces
+# Crypt-O-Keepers
 
 ### Team Name
 
-DKCN
+CryptKeepers
 
 ### Team Members
 
@@ -29,6 +29,9 @@ Build a multi-variate comparison tool suitable for finding the correlation betwe
 ### APIs to Be Used
 
 Coinbase
+IEX Trading
+(need API to grab news articles and videos on blockchain and mining)
+newsinapp
 
 ### Sketch of Final Product
 
