@@ -14,10 +14,11 @@ const ItemCtrl = (function(){
                 ///////////// HERE KEVIN! ////////////////////
             } else {
                 let trace1 = {},
+
                     volume = {},
+
                     data = [];
-                
-                
+               
                 if(chartStyle == 'scatter'){
                    
                     trace1 = {
