@@ -5,6 +5,8 @@ const ItemCtrl = (function(){
     return {
         mapCurrData: function(currData, chartStyle, getCurrSelects){
 
+            console.log(currData);
+            
             Plotly.purge('currChartPlot');
 
             if(getCurrSelects.cryptoCurrency == 'currWeightAvg'){
@@ -12,9 +14,11 @@ const ItemCtrl = (function(){
                 ///////////// HERE KEVIN! ////////////////////
             } else {
                 let trace1 = {},
+
+                    volume = {},
+
                     data = [];
-                
-                
+               
                 if(chartStyle == 'scatter'){
                    
                     trace1 = {
@@ -24,11 +28,50 @@ const ItemCtrl = (function(){
                         y: currData.map(datum => datum.price_close),
                         line: {color: '#17BECF'}
                     }
+                    
+                    volume = {
+                        x: currData.map(datum => datum.time_period_start.split('T')[0]),
+                        y: currData.map(datum => datum.volume_traded),
+                        xaxis: 'x2',
+                        yaxis: 'y2',
+                        type: 'bar'    
+                    };
 
-                    data = [trace1];
+                    data = [trace1, volume];
 
                     let layout = {
-                        title: `${getCurrSelects.cryptoName} Currency Chart`
+                          dragmode: 'zoom', 
+                          autosize: true,
+                          title: `${getCurrSelects.cryptoName} Currency Chart`,
+                          margin: {
+                            r: 10, 
+                            t: 30, 
+                            b: 30, 
+                            l: 40
+                          }, 
+                          showlegend: false, 
+                          xaxis: {
+                            autorange: true, 
+                            domain: [0, 1], 
+                            range: [trace1.x[0], trace1.x[trace1.x.length-1]],
+                            rangeslider: {
+                                visible: false
+                            },
+                            type: 'date'
+                          }, 
+                          yaxis: {
+                            autorange: true, 
+                            domain: [.3, 1],   
+                            type: 'linear'
+                          },
+                          xaxis2: {
+                              domain: [0, 1],
+                              title: `Volume`,
+                          },
+                          yaxis2: {
+                            domain: [0, .2],
+                            anchor: 'x2'
+                          }
                     };
 
                     Plotly.plot('currChartPlot', data, layout); 
@@ -47,35 +90,51 @@ const ItemCtrl = (function(){
                         xaxis: 'x', 
                         yaxis: 'y'
                     };
+                    
+                    volume = {
+                        x: currData.map(datum => datum.time_period_start.split('T')[0]),
+                        y: currData.map(datum => datum.volume_traded),
+                        xaxis: 'x2',
+                        yaxis: 'y2',
+                        type: 'bar'    
+                    };
+                    
+                     data = [trace1, volume];
 
-
-                     data = [trace1];
-
-                     let layout = {
-                           dragmode: 'zoom', 
-                           autosize: true,
-                           margin: {
-                             r: 10, 
-                             t: 25, 
-                             b: 40, 
-                             l: 60
-                           }, 
-                           showlegend: false, 
-                           xaxis: {
-                             autorange: true, 
-                             domain: [0, 1], 
-                             range: [trace1.x[0], trace1.x[trace1.x.length-1]], 
-                             rangeslider: {range: [trace1.x[0], trace1.x[trace1.x.length-1]]}, 
-                             title: `${getCurrSelects.cryptoName} Currency Chart`, 
-                             type: 'date'
-                           }, 
-                           yaxis: {
-                             autorange: true, 
-                             domain: [0, 1], 
-                             range: [Math.min(...trace1.low), Math.max(...trace1.high)],  
-                             type: 'linear'
-                           }
-                     };
+                      let layout = {
+                              dragmode: 'zoom', 
+                              autosize: true,
+                              title: `${getCurrSelects.cryptoName} Currency Chart`,
+                              margin: {
+                                r: 10, 
+                                t: 30, 
+                                b: 30, 
+                                l: 40
+                              }, 
+                              showlegend: false, 
+                              xaxis: {
+                                autorange: true, 
+                                domain: [0, 1], 
+                                range: [trace1.x[0], trace1.x[trace1.x.length-1]],
+                                rangeslider: {
+                                    visible: false
+                                },
+                                type: 'date'
+                              }, 
+                              yaxis: {
+                                autorange: true, 
+                                domain: [.3, 1],   
+                                type: 'linear'
+                              },
+                              xaxis2: {
+                                  domain: [0, 1],
+                                  title: `Volume`,
+                              },
+                              yaxis2: {
+                                domain: [0, .2],
+                                anchor: 'x2'
+                              }
+                        };
 
                     Plotly.plot('currChartPlot', data, layout);   
                 }
@@ -108,6 +167,7 @@ const ItemCtrl = (function(){
             
             
             let trace1 = {},
+                volume = {},
                data = [];
 
             if(chartStyle == 'scatter'){
@@ -119,11 +179,50 @@ const ItemCtrl = (function(){
                     y: stockData.chart.map(datum => datum.close),
                     line: {color: '#17BECF'}
                 }
+                
+                volume = {
+                        x: stockData.chart.map(datum => datum.date),
+                        y: stockData.chart.map(datum => datum.volume),
+                        xaxis: 'x2',
+                        yaxis: 'y2',
+                        type: 'bar'    
+                    };
 
-                data = [trace1];
+                data = [trace1, volume];
 
                 let layout = {
-                    title: `${getStockSelects.stockName} Stock Chart`
+                      dragmode: 'zoom', 
+                      autosize: true,
+                      title: `${getStockSelects.stockName} Stock Chart`,
+                      margin: {
+                        r: 10, 
+                        t: 30, 
+                        b: 30, 
+                        l: 40
+                      }, 
+                      showlegend: false, 
+                      xaxis: {
+                        autorange: true, 
+                        domain: [0, 1], 
+                        range: [trace1.x[0], trace1.x[trace1.x.length-1]],
+                        rangeslider: {
+                            visible: false
+                        },
+                        type: 'date'
+                      }, 
+                      yaxis: {
+                        autorange: true, 
+                        domain: [.3, 1],   
+                        type: 'linear'
+                      },
+                      xaxis2: {
+                          domain: [0, 1],
+                          title: `Volume`,
+                      },
+                      yaxis2: {
+                        domain: [0, .2],
+                        anchor: 'x2'
+                      }
                 };
 
                 Plotly.plot('stockChartPlot', data, layout);
@@ -143,33 +242,51 @@ const ItemCtrl = (function(){
                     xaxis: 'x', 
                     yaxis: 'y'
                 };
+                
+                volume = {
+                        x: stockData.chart.map(datum => datum.date),
+                        y: stockData.chart.map(datum => datum.volume),
+                        xaxis: 'x2',
+                        yaxis: 'y2',
+                        type: 'bar'    
+                    };
 
 
-                data = [trace1];
+                data = [trace1, volume];
 
                 let layout = {
                       dragmode: 'zoom', 
                       autosize: true,
+                      title: `${getStockSelects.stockName} Stock Chart`,
                       margin: {
                         r: 10, 
-                        t: 25, 
-                        b: 40, 
-                        l: 60
+                        t: 30, 
+                        b: 30, 
+                        l: 40
                       }, 
                       showlegend: false, 
                       xaxis: {
                         autorange: true, 
                         domain: [0, 1], 
-                        range: [trace1.x[0], trace1.x[trace1.x.length-1]], 
-                        rangeslider: {range: [trace1.x[0], trace1.x[trace1.x.length-1]]}, 
-                        title: `${getStockSelects.stockName} Stock Chart`, 
+                        range: [trace1.x[0], trace1.x[trace1.x.length-1]],
+                        rangeslider: {
+                            visible: false
+                        },
                         type: 'date'
                       }, 
                       yaxis: {
                         autorange: true, 
-                        domain: [0, 1], 
+                        domain: [.3, 1], 
                         range: [Math.min(...trace1.low), Math.max(...trace1.high)],  
                         type: 'linear'
+                      },
+                      xaxis2: {
+                          domain: [0, 1],
+                          title: `Volume`,
+                      },
+                      yaxis2: {
+                        domain: [0, .2],
+                        anchor: 'x2'
                       }
                 };
 

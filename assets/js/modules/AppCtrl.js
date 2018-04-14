@@ -7,19 +7,19 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     /*----------------INPUT Events-----------------*/
 
     /*----------------CLICK Events-----------------*/
-    //Draw Chart Submit Click
-    document
-      .querySelector(UISelectors.drawStockChartBtn)
-      .addEventListener("click", drawStockChart);
-
-    document
-      .querySelector(UISelectors.drawCurrChartBtn)
-      .addEventListener("click", drawCurrChart);
+    //Draw Stock Chart Submit Click
+    document.querySelector(UISelectors.drawStockChartBtn).addEventListener("click", drawStockChart);
+    
+    //Draw Currency Chart Submit Click
+    document.querySelector(UISelectors.drawCurrChartBtn).addEventListener("click", drawCurrChart);
+      
+    //Navbar menu click
+    document.querySelector(UISelectors.cardHeader).addEventListener('click', (e)=>{
+        UICtrl.toggleMenuState(e.target);
+    });
 
     /*----------------CHANGE Events-----------------*/
-    document
-      .querySelector(UISelectors.techCompSelect)
-      .addEventListener("change", () => {
+    document.querySelector(UISelectors.techCompSelect).addEventListener("change", () => {
         const getStockSelects = UICtrl.getStockSelects();
         if (getStockSelects.stockSymbol == "stockWeightAvg") {
           document.querySelector(UISelectors.stockWeightAvg).style.display =
@@ -113,5 +113,6 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     }
   };
 })(ItemCtrl, UICtrl);
+
 
 AppCtrl.init();

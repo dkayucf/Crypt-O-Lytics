@@ -7,178 +7,287 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Crytp-O-Lytics</title>
     <link rel="stylesheet" href="assets/css/reset.css" type="text/css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-        crossorigin="anonymous">
-    <script defer src="assets/js/dependencies/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body class="container-fluid px-0 bg-secondary">
-        <nav class="navbar navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">
-            <h1>Logo Here</h1>
-          </a>
-        </nav>           
+   <!-------------------------------------TOP NAVBAR NAVIGATION-------------------------------------->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Logo Here</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link mr-2" href="#"><i class="fas fa-suitcase mr-2"></i>Trade</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link mr-2" href="#"><i class="fas fa-chart-line mr-2"></i>Charts <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Stock Symbol" aria-label="Search">
+                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Quick Quote</button>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#"><i class="far fa-bell mr-2"></i>Alerts</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#"><i class="far fa-paper-plane mr-2"></i>Notifications</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#"><i class="fas fa-user mr-2"></i>Account</a>
+                </li>
+            </ul>
+            
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-2  bg-dark text-light p-0" id="sideBarCol">
+<!-------------------------------------SIDEBAR NAVIGATION-------------------------------------->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav my-5">
+                    <li>
+                        <div class="card techIndications border-right-0 border-left-0 rounded-0">
+                            <div class="card-header panel-heading bg-secondary active rounded-0">
+                                <h6 class="d-inlinepanel-title mb-0 text-center">
+                                    <a class="collapsed addChevron" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Technical Indicators
+                                               </a>
+                                </h6>
+                            </div>
+                            <div class="panel-collapse collapse show" id="collapseOne" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="card-body  panel-body bg-dark text-light ml-3">
+                                    <div class="form-group">
+                                        <label for="movingAverage" class='mb-0'>Moving Average:</label>
+                                        <select class="custom-select custom-select-sm my-2 movingAverage" required>
+                                            <option value="none">None</option>
+                                            <optgroup label="Simple Moving Average">
+                                                <option value="SMA">SMA</option>
+                                                <option value="SMA2">SMA (2-line)</option>
+                                                <option value="SMA3">SMA (3-line)</option>
+                                            </optgroup>
+                                            <optgroup label="Exponential Moving Average">
+                                                <option value="EMA">EMA</option>
+                                                <option value="EMA2">EMA (2-line)</option>
+                                                <option value="EMA3">EMA (3-line)</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="upperIndicators" class='mb-0'>Upper Indicators:</label>
+                                        <select class="custom-select custom-select-sm my-2 upperIndicators" required>
+                                            <optgroup label="UpperIndicators">
+                                                <option value="none">None</option>
+                                                <option value="nvda">MA Envelopes</option>
+                                                <option value="amd">Bollinger Bands</option>
+                                                <option value="intc">Parabolic SAR</option>
+                                                <option value="mu">Volume by Price</option>
+                                                <option value="tsm">Price Channel</option>
+                                            </optgroup>
+                                            <optgroup label="Events">
+                                                <option value="splits">Splits</option>
+                                                <option value="earnings">Earnings</option>
+                                                <option value="dividends">Dividends</option>
+                                                <option value="allEvents">All Events</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card currentNews border-right-0 border-left-0 rounded-0">
+                            <div class="card-header panel-heading bg-dark rounded-0">
+                                <h6 class="d-inlinepanel-title mb-0 text-center">
+                                    <a class="" href="#news">Current News
+                                               </a>
+                                </h6>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card educationVids border-right-0 border-left-0 rounded-0">
+                            <div class="card-header panel-heading bg-dark rounded-0">
+                                <h6 class="d-inlinepanel-title mb-0 text-center">
+                                    <a class="" href="#educationVids">Educational Videos
+                                               </a>
+                                </h6>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-------------------------------------MAIN CONTENT BODY-------------------------------------->
+        <div class="col-md-10">
             <div class="row d-flex justify-content-center align-items-center mt-5">
-              <div class="col-md-5 border p-2 d-flex justify-content-center align-items-center mr-3 bg-dark text-light rounded">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <h5>Tech Stocks<i class="fas fa-chart-line ml-3"></i></h5>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-12 pb-2">
-                            <select class="custom-select custom-select-sm my-2 techCompSelect" required>
-                                <option selected disabled hidden>Select Tech Company...</option>
-                                <option value="nvda">Nvidia</option>
-                                <option value="amd">AMD</option>
-                                <option value="intc">Intel</option>
-                                <option value="mu">Micron</option>
-                                <option value="tsm">Taiwan Semiconductor</option>
-                                <option value="stockWeightAvg">Weighted Average</option>
-                            </select>
-                            <select class="custom-select custom-select-sm my-2 techTimeFrame" required>
-                                <option selected disabled hidden>Select time frame...</option>
-                                <option value="1y">One Year</option>
-                                <option value="6m">6 Months</option>
-                                <option value="3m">3 Months</option>
-                                <option value="1m">1 Month</option>
-                            </select>
-                            <select class="custom-select custom-select-sm my-2 stockChartStyle" required>
-                                <option selected disabled hidden>Select Chart Style...</option>
-                                <option value="candlestick">Candlesticks</option>
-                                <option value="ohlc">OHLC</option>
-                                <option value="scatter">Line</option>
-                            </select>
-                            <div class="container weightAvgInput" id="stockWeightAvg">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                        <label for="">Nvidia</label>
-                                        <input type="number" class='form-control' id="">
-                                    </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="">AMD</label>
-                                            <input type="number" class='form-control' id="">
+                <div class="col-md-5 border p-2 d-flex justify-content-center align-items-center mr-3 bg-dark text-light rounded">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Tech Stocks<i class="fas fa-chart-line ml-3"></i></h5>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 pb-2">
+                                <select class="custom-select custom-select-sm my-2 techCompSelect" required>
+                                            <option selected disabled hidden>Select Tech Company...</option>
+                                            <option value="nvda">Nvidia</option>
+                                            <option value="amd">AMD</option>
+                                            <option value="intc">Intel</option>
+                                            <option value="mu">Micron</option>
+                                            <option value="tsm">Taiwan Semiconductor</option>
+                                            <option value="stockWeightAvg">Weighted Average</option>
+                                        </select>
+                                <select class="custom-select custom-select-sm my-2 techTimeFrame" required>
+                                            <option selected disabled hidden>Select time frame...</option>
+                                            <option value="1y">One Year</option>
+                                            <option value="6m">6 Months</option>
+                                            <option value="3m">3 Months</option>
+                                            <option value="1m">1 Month</option>
+                                        </select>
+                                <select class="custom-select custom-select-sm my-2 stockChartStyle" required>
+                                            <option selected disabled hidden>Select Chart Style...</option>
+                                            <option value="candlestick">Candlesticks</option>
+                                            <option value="ohlc">OHLC</option>
+                                            <option value="scatter">Line</option>
+                                        </select>
+                                <div class="container weightAvgInput" id="stockWeightAvg">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="">Nvidia</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="">Intel</label>
-                                            <input type="number" class='form-control' id="">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="">AMD</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="">Micron</label>
-                                            <input type="number" class='form-control' id="">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="">Intel</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="" class="taiwanLabel">Taiwan Semiconductor</label>
-                                            <input type="number" class='form-control' id="">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="">Micron</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="" class="taiwanLabel">Taiwan Semiconductor</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <button class="btn btn-warning btn-sm drawStockChart">Chart</button>
                             </div>
-                            <button class="btn btn-warning btn-sm drawStockChart">Chart</button>  
-                          </div>
-                      </div>
-                  </div>
-
-              </div>
-              <div class="col-md-5  border p-2 d-flex justify-content-center align-items-center bg-dark text-light rounded">
-                 <div class="container">
-                     <div class="row">
-                         <div class="col-md-12">
-                             <h5>Cryptocurrency<i class="fab fa-bitcoin ml-3"></i></h5>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-md-12 pb-2">
-                            <select class="custom-select custom-select-sm my-2 cryptoCurrSelect" required>
-                                <option selected disabled hidden>Select Cryptocurrency...</option>
-                                <option value="BTC">Bitcoin</option>
-                                <option value="ETH">Ethereum</option>
-                                <option value="XRP">Ripple</option>
-                                <option value="BCH">Bitcoin Cash</option>
-                                <option value="XLM">Stellar</option>
-                                <option value="currWeightAvg">Weighted Average</option>
-                            </select>
-                            <select class="custom-select custom-select-sm my-2 cryptoTimeFrame" required>
-                                <option selected disabled hidden>Select time frame...</option>
-                                <option value="1YRS">1 Year</option>
-                                <option value="6MTH">6 Months</option>
-                                <option value="3MTH">3 Months</option>
-                                <option value="1MTH">1 Month</option>
-                            </select>
-                            <select class="custom-select custom-select-sm my-2 cryptoChartStyle" required>
-                                <option selected disabled hidden>Select Chart Style...</option>
-                                <option value="candlestick">Candlesticks</option>
-                                <option value="ohlc">OHLC</option>
-                                <option value="scatter">Line</option>
-                            </select>
-                            <div class="container weightAvgInput" id="cryptoWeightAvg">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                        <label for="">Label 1</label>
-                                        <input type="number" class='form-control' id="">
-                                    </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="">Label 2</label>
-                                            <input type="number" class='form-control' id="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5  border p-2 d-flex justify-content-center align-items-center bg-dark text-light rounded">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Cryptocurrency<i class="fab fa-bitcoin ml-3"></i></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 pb-2">
+                                <select class="custom-select custom-select-sm my-2 cryptoCurrSelect" required>
+                                            <option selected disabled hidden>Select Cryptocurrency...</option>
+                                            <option value="BTC">Bitcoin</option>
+                                            <option value="ETH">Ethereum</option>
+                                            <option value="XRP">Ripple</option>
+                                            <option value="BCH">Bitcoin Cash</option>
+                                            <option value="XLM">Stellar</option>
+                                            <option value="currWeightAvg">Weighted Average</option>
+                                        </select>
+                                <select class="custom-select custom-select-sm my-2 cryptoTimeFrame" required>
+                                            <option selected disabled hidden>Select time frame...</option>
+                                            <option value="1YRS">1 Year</option>
+                                            <option value="6MTH">6 Months</option>
+                                            <option value="3MTH">3 Months</option>
+                                            <option value="1MTH">1 Month</option>
+                                        </select>
+                                <select class="custom-select custom-select-sm my-2 cryptoChartStyle" required>
+                                            <option selected disabled hidden>Select Chart Style...</option>
+                                            <option value="candlestick">Candlesticks</option>
+                                            <option value="ohlc">OHLC</option>
+                                            <option value="scatter">Line</option>
+                                        </select>
+                                <div class="container weightAvgInput" id="cryptoWeightAvg">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">Label 1</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="">Label 3</label>
-                                            <input type="number" class='form-control' id="">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">Label 2</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="">Label 4</label>
-                                            <input type="number" class='form-control' id="">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">Label 3</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">Label 4</label>
+                                                <input type="number" class='form-control' id="">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <button class="btn btn-warning btn-sm drawCurrChart">Chart</button>
                             </div>
-                            <button class="btn btn-warning btn-sm drawCurrChart">Chart</button> 
-                         </div>
-                     </div>
-                 </div>
+                        </div>
+                    </div>
 
-              </div>
-          </div>
+                </div>
+            </div>
 
-          <div class="row mt-4 d-flex justify-content-center align-items-center">
-              <div class="col-md-5 p-0 mr-3">
-                  <div class="card" id='stockChartCard'>
-                      <div class="card-body p-0" id="stockChartPlot">
+            <div class="row mt-4 d-flex justify-content-center align-items-center">
+                <div class="col-md-5 p-0 mr-3">
+                    <div class="card" id='stockChartCard'>
+                        <div class="card-body p-0" id="stockChartPlot">
 
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-5 p-0">
-                  <div class="card" id='currChartCard'>
-                      <div class="card-body p-0" id="currChartPlot">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 p-0">
+                    <div class="card" id='currChartCard'>
+                        <div class="card-body p-0" id="currChartPlot">
 
-                      </div>
-                  </div>
-              </div>
-          </div>    
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="assets/js/dependencies/plotly-latest.min.js"></script>
     <script src="assets/js/modules/ItemCtrl.js"></script>
     <script src="assets/js/modules/UICtrl.js"></script>
