@@ -21,7 +21,8 @@ const UICtrl = (function(){
         
         //Divs
         stockChartCard: '#stockChartCard',
-        currChartCard: '#currChartCard'
+        currChartCard: '#currChartCard',
+        cardHeader: '.card-header'
         
     }
     
@@ -63,6 +64,18 @@ const UICtrl = (function(){
         },
         getSelectors: () => {
             return UISelectors;
+        },
+        toggleMenuState: (menuToggle) =>{
+            if(menuToggle.classList.contains('addChevron')){
+                console.log(!menuToggle.parentElement.parentElement.classList.contains('active'));
+                if(!menuToggle.parentElement.parentElement.classList.contains('active')){
+                    menuToggle.parentElement.parentElement.classList = 'card-header panel-heading bg-secondary active';
+                }else if (menuToggle.parentElement.parentElement.classList.contains('active')) {
+                    menuToggle.parentElement.parentElement.classList = 'card-header panel-heading bg-dark';
+                }
+            }
+            
+            
         },
         resetSelects: () => {
             let selectsArr = Array.from(document.querySelectorAll('select'));

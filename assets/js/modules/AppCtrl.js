@@ -7,19 +7,19 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     /*----------------INPUT Events-----------------*/
 
     /*----------------CLICK Events-----------------*/
-    //Draw Chart Submit Click
-    document
-      .querySelector(UISelectors.drawStockChartBtn)
-      .addEventListener("click", drawStockChart);
-
-    document
-      .querySelector(UISelectors.drawCurrChartBtn)
-      .addEventListener("click", drawCurrChart);
+    //Draw Stock Chart Submit Click
+    document.querySelector(UISelectors.drawStockChartBtn).addEventListener("click", drawStockChart);
+    
+    //Draw Currency Chart Submit Click
+    document.querySelector(UISelectors.drawCurrChartBtn).addEventListener("click", drawCurrChart);
+      
+    //Navbar menu click
+    document.querySelector(UISelectors.cardHeader).addEventListener('click', (e)=>{
+        UICtrl.toggleMenuState(e.target);
+    });
 
     /*----------------CHANGE Events-----------------*/
-    document
-      .querySelector(UISelectors.techCompSelect)
-      .addEventListener("change", () => {
+    document.querySelector(UISelectors.techCompSelect).addEventListener("change", () => {
         const getStockSelects = UICtrl.getStockSelects();
         if (getStockSelects.stockSymbol == "stockWeightAvg") {
           document.querySelector(UISelectors.stockWeightAvg).style.display =
@@ -36,20 +36,38 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
 
     const chartStyle = UICtrl.getChartStyle(UISelectors.cryptoChartStyle);
 
-    let url;
+    let url,
+        startTime,
+        dateNow = new Date(),
+        dateNowISO = dateNow.toISOString();
+
+      switch(getCurrSelects.cryptoCurrTimeFrame) {
+            case '1YRS':
+                startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 12)).toISOString();
+                break;
+            case '6MTH':
+                startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 6)).toISOString();
+                break;
+            case '3MTH':
+                startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 3)).toISOString();
+                break;
+            case '1MTH':
+                startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 1)).toISOString();
+                break;
+        }  
 
     if (getCurrSelects.cryptoCurrency == "currWeightAvg") {
     } else {
-    //   url = `https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_${getCurrSelects.cryptoCurrTimeFrame}&symbol=${getCurrSelects.cryptoCurrency}&market=USD&apikey=S0HO0DDZUQE2KYTG`;
-        url = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_${getCurrSelects.cryptoCurrency}_USD/latest?apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D&period_id=${getCurrSelects.cryptoCurrTimeFrame}`;
+
+        url = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_${getCurrSelects.cryptoCurrency}_USD/history?period_id=1DAY&time_start=${startTime}&time_end=${dateNowISO}&market=USD&limit=366&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`;
     }
 
     $.ajax({
-      url: url,
-      method: "GET", 
-      crossDomain: true,
+        url: url,
+        method: "GET",
+        crossDomain: true,
     }).then(function(currencyData) {
-        console.log(currencyData);
+
         document.querySelector(UISelectors.currChartCard).style.display = "block";
 
         ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
@@ -95,5 +113,6 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     }
   };
 })(ItemCtrl, UICtrl);
+
 
 AppCtrl.init();
