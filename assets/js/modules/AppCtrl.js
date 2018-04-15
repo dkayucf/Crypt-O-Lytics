@@ -17,6 +17,8 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     document.querySelector(UISelectors.cardHeader).addEventListener('click', (e)=>{
         UICtrl.toggleMenuState(e.target);
     });
+      
+    document.querySelector(UISelectors.quickQuoteBtn).addEventListener('click', displayQuote);
 
     /*----------------CHANGE Events-----------------*/
     document.querySelector(UISelectors.techCompSelect).addEventListener("change", () => {
@@ -105,6 +107,26 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
 
     UICtrl.resetSelects();
   };
+    
+    const displayQuote = function(){
+        
+        let stockSymbol = document.querySelector(UISelectors.quickQuoteInput).value,
+            url;
+        
+        if(stockSymbol.length > 4 || stockSymbol == ''){
+            alert('please fill in a proper stock symbol');
+        }else{
+            url = `https://api.iextrading.com/1.0/stock/${stockSymbol}/quote`;
+            
+            $.ajax({
+              url: url,
+              method: "GET"
+            }).then(function(stockData) {
+              UICtrl.displayStockQuote(stockData);
+            });
+        }
+        
+    }
 
   //Public Methods
   return {

@@ -5,9 +5,11 @@ const UICtrl = (function(){
         //Buttons
         drawStockChartBtn: '.drawStockChart',
         drawCurrChartBtn: '.drawCurrChart',
+        quickQuoteBtn: '#quickQuoteBtn',
         
         //Inputs
         stockWeightAvg: '#stockWeightAvg',
+        quickQuoteInput: '#quickQuoteInput',
         
         //Selects
         techCompSelect: '.techCompSelect',
@@ -18,6 +20,8 @@ const UICtrl = (function(){
         cryptoChartStyle: '.cryptoChartStyle',
         
         //Tables
+        quoteTbody1: '#quoteTbody1',
+        quoteTbody2: '#quoteTbody2',
         
         //Divs
         stockChartCard: '#stockChartCard',
@@ -28,6 +32,32 @@ const UICtrl = (function(){
     
     //Public Methods
     return {
+        displayStockQuote: function(quote){
+            
+            document.querySelector('#quoteModalTitle').innerHTML = `${quote.companyName} (${quote.symbol})`;
+            
+            let html1 = `<tr>
+                <td>${quote.open}</td>
+                <td>${quote.latestPrice}</td>
+                <td>${quote.change}</td>
+                <td>${quote.changePercent}</td>
+                <td>${quote.high}</td>
+                <td>${quote.low}</td>
+            </tr>`;
+            
+            let html2 = `<tr>
+                <td>${quote.marketCap}</td>
+                <td>${quote.peRatio}</td>
+                <td>${quote.week52High}</td>
+                <td>${quote.week52Low}</td>
+                <td>${(quote.ytdChange * 100).toFixed(2)}%</td>
+            </tr>`;
+            
+            document.querySelector(UISelectors.quoteTbody1).innerHTML = html1;
+            document.querySelector(UISelectors.quoteTbody2).innerHTML = html2;
+            
+            $('#quickQuoteModal').modal('show');
+        },
         getStockSelects: function(){
             const stockSymbolSelect = document.querySelector(UISelectors.techCompSelect);
             const stockSymbolSelectValue = stockSymbolSelect.options[stockSymbolSelect.selectedIndex].value;
