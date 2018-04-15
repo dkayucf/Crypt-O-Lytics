@@ -76,4 +76,9 @@ a:hover {
     transform: rotate(180deg);
 } 
 
+.custom-select:disabled {
+    color: #6c757d;
+    background-color: #ababab;
+}
+
 
