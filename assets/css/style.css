@@ -111,12 +111,13 @@ span {
 }
 
 .display-4 {
-    z-index: 2:
+    z-index: 2;
 }
 
 #logo {
     height: 50%;
     width: 50%;
+}
 
 #sideBarCol {
     background-image:
