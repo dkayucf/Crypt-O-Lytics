@@ -35,26 +35,10 @@ Future developments will add:
     tool for charting, and possibly predicting, trends in prices, relative
     prices, demand &/or almost any ratio or relationship users can imagine.
 
--   Long-term goal is to create a site which can be monetized:
-
-    -   A) users are willing to pay a monthly subscription to enable
-        customization.
-
-    -   B) sold to originators, distributors and/or users of chart-able
-        information to integrate into their solutions.
-
-    -   C) generates sufficient traffic to attract advertisers.
+8.  Long-term goal is to create a site where users will pay a subscription to
+    enable customization and /or sold to sources, distributors, users to
+    integrate into their solutions.
 
 **TECHNOLOGIES**
 
--   Iextrading API
-
--   Cryptocompare API
-
 -   Plotly.js for charting
-
--   Google fonts
-
--   Bootstrap 4
-
--   Javascript
