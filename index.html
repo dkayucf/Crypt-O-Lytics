@@ -15,7 +15,7 @@
 
 <body class="container-fluid px-0 bg-secondary">
    <!-------------------------------------TOP NAVBAR NAVIGATION-------------------------------------->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Logo Here</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -48,30 +48,42 @@
             
         </div>
     </nav>
-        <div class="row text-center bg-dark text-light py-2">
-                <div class="col-md-2  d-flex justify-content-center align-items-center">
-                    <h6 class="mr-2 mb-0">Bitcoin</h6>
-                    <div id="BTCQuote"></div>
+        <div class="row text-center py-2" id="tickerTape">
+                <div class="col-md-2  d-flex justify-content-center align-items-center p-0">
+                    <img src="assets/images/coinIcons/BTC.svg" alt="Bitcoin" id="bitcoinIcon" class="mr-2">
+                    <div id="BTCQuote" class="">
+                        <h6 class="price-display mb-0">BTC:<span class="price" id="PRICE_BTC"></span><span id="CHANGE24HOUR_BTC"  class="ml-2"></span></h6>
+                    </div>
                 </div>
-                <div class="col-md-2  d-flex justify-content-center align-items-center">
-                    <h6 class="mr-2 mb-0">Etherium</h6>
-                    <div id="ETHQuote"></div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center p-0">
+                   <img src="assets/images/coinIcons/ETH.svg" alt="Etherium" id='etheriumIcon'  class="mr-2">
+                    <div id="ETHQuote">
+                        <h6 class="price-display mb-0">ETH:<span class="price" id="PRICE_ETH"></span><span id="CHANGE24HOUR_ETH"  class="ml-2"></span></h6>
+                    </div>
                 </div>
-                <div class="col-md-2  d-flex justify-content-center align-items-center">
-                    <h6 class="mr-2 mb-0">Ripple</h6>
-                    <div id="XRPQuote"></div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center p-0">
+                   <img src="assets/images/coinIcons/XRP.svg" alt="Ripple" id="rippleIcon"  class="mr-2">
+                    <div id="XRPQuote">
+                        <h6 class="price-display mb-0">XRP:<span class="price" id="PRICE_XRP"></span><span id="CHANGE24HOUR_XRP"  class="ml-2"></span></h6>
+                    </div>
                 </div> 
-                <div class="col-md-2  d-flex justify-content-center align-items-center">
-                    <h6 class="mr-2 mb-0">Bitcoin Cash</h6>
-                    <div id="BCHQuote"></div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center p-0">
+                   <img src="assets/images/coinIcons/BCH.svg" alt="Bitcoin Cash" id="bchIcon"  class="mr-2">
+                    <div id="BCHQuote">
+                        <h6 class="price-display mb-0">BCH:<span class="price" id="PRICE_BCH"></span><span id="CHANGE24HOUR_BCH"  class="ml-2"></span></h6>
+                    </div>
                 </div>
-                <div class="col-md-2  d-flex justify-content-center align-items-center">
-                    <h6 class="mr-2 mb-0">Stellar</h6>
-                    <div id="XLMQuote"></div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center p-0">
+                   <img src="assets/images/coinIcons/StellarXLM.svg" alt="Stellar" id="xlmIcon"  class="mr-2">
+                    <div id="XLMQuote">
+                        <h6 class="price-display mb-0">XLM:<span class="price" id="PRICE_XLM"></span><span id="CHANGE24HOUR_XLM"  class="ml-2"></span></h6>
+                    </div>
                 </div>
-                <div class="col-md-2  d-flex justify-content-center align-items-center">
-                    <h6 class="mr-2 mb-0">LiteCoin</h6>
-                    <div id="LTCQuote"></div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center p-0">
+                   <img src="assets/images/coinIcons/LTC.svg" alt="Litecoin" id="liteIcon"  class="mr-2">
+                    <div id="LTCQuote">
+                        <h6 class="price-display mb-0">LTC:<span class="price" id="PRICE_LTC"></span><span id="CHANGE24HOUR_LTC"  class="ml-2"></span></h6>
+                    </div>
                 </div>    
        </div>
 
@@ -81,7 +93,7 @@
         <div class="col-md-2  bg-dark text-light p-0" id="sideBarCol">
 <!-------------------------------------SIDEBAR NAVIGATION-------------------------------------->
             <div id="sidebar-wrapper">
-                <ul class="sidebar-nav my-5">
+                <ul class="sidebar-nav mt-3">
                     <li>
                         <div class="card techIndications border-right-0 border-left-0 rounded-0">
                             <div class="card-header panel-heading bg-secondary active rounded-0">
@@ -314,6 +326,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row  d-flex justify-content-center align-items-center">
+                <div class="col-md-5 stockChartNews ">
+                    
+                </div>
+                <div class="col-md-5 cryotCurrencyNews">
+                    
+                </div>
+            </div>
         </div>
     </div>
     <!--------------------------------QUICK QUOTE MODAL--------------------------------->
@@ -361,9 +381,12 @@
         </div>
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="assets/js/dependencies/ccc-streamer-utilities.js"></script>
+    <script src="assets/js/dependencies/stream.js"></script>
     <script src="assets/js/dependencies/plotly-latest.min.js"></script>
     <script src="assets/js/modules/ItemCtrl.js"></script>
     <script src="assets/js/modules/UICtrl.js"></script>

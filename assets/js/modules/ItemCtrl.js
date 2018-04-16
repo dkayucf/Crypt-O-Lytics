@@ -142,7 +142,15 @@ const ItemCtrl = (function(){
         },
 
         mapStockData: function(stockData, chartStyle, getStockSelects){
+
+            //UICtrl.displayNewsArticles(stockData.news, 'stocks');
             
+            if(chartStyle == 'Select Chart Style...'){
+                chartStyle = 'candlestick';
+                document.querySelector('.stockChartStyle').value = 'candlestick';
+                
+            }
+           
             //Purge any plots that may be present before displaying new plot
             Plotly.purge('stockChartPlot');
             
@@ -154,20 +162,21 @@ const ItemCtrl = (function(){
                 trace1,
                 data;
             
+            //iterate over the stockData object of objects
             for(let stock in stockData){
                 
-                /******************KEVIN THIS IS WHERE YOU SHOULD START**************************************/
-//                console.log(stockData[stock].chart[0].close);
-//                console.log(stockData[stock].chart.map(stock=> stock.close));
-                
+                //divide the 1 by the first data value
                 const closingRatio = 1 / stockData[stock].chart[0].close;
                 const openRatio = 1 / stockData[stock].chart[0].open;
                 const highRatio = 1 / stockData[stock].chart[0].high;
                 const lowRatio = 1 / stockData[stock].chart[0].low;
                 //console.log(`Closing: ${closingRatio}, Open: ${openRatio}, High: ${highRatio}, Low: ${lowRatio}`);
-                //console.log(stockData[stock].chart);  
+  
+                //Map each open value and multiply by the ratio above
                 let open = stockData[stock].chart.map(x=> (x.open * openRatio));
                 let date = stockData[stock].chart.map(x=> x.date);
+                
+                //push each value into the normalized array
                 normalizedArr.push(open);
                 dateArr.push(date)
             }
@@ -205,18 +214,18 @@ const ItemCtrl = (function(){
                         domain: [0, 1], 
                         range: [trace1.x[0], trace1.x[trace1.x.length-1]],
                         rangeslider: {
-                            visible: false
+                            visible: true
                         },
                         type: 'date'
                       }, 
                       yaxis: {
                         autorange: true, 
-                        domain: [.3, 1],   
+                        domain: [0, 1],   
                         type: 'linear'
                       }
                       
                 };
-
+            
                 Plotly.plot('stockChartPlot', data, layout);
 
    

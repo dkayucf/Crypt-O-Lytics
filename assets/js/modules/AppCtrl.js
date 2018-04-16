@@ -24,11 +24,13 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
         const getStockSelects = UICtrl.getStockSelects();
         
         if (getStockSelects.stockSymbol == "stockWeightAvg") {
-          document.querySelector(UISelectors.stockWeightAvg).style.display =
-            "block";
+           document.querySelector(UISelectors.stockWeightAvg).style.display = "block";
+            let stockChartStyle = document.querySelector(UISelectors.stockChartStyle);
+            stockChartStyle.disabled = true;
+            stockChartStyle.value = 'scatter';
+            
         } else {
-          document.querySelector(UISelectors.stockWeightAvg).style.display =
-            "none";
+          document.querySelector(UISelectors.stockWeightAvg).style.display = "none";
         }
       });
       
@@ -101,17 +103,18 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     const getStockSelects = UICtrl.getStockSelects();
 
     const chartStyle = UICtrl.getChartStyle(UISelectors.stockChartStyle);
+           
+    if(getStockSelects.stockTimeFrame == 'Select time frame...'){
+        getStockSelects.stockTimeFrame = '1y';
+        document.querySelector(UISelectors.techTimeFrame).value = '1y';
+    }  
 
     let url;
 
     if (getStockSelects.stockSymbol == "stockWeightAvg") {
-      url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=nvda,amd,intc,mu,tsm&types=quote,news,chart&range=${
-        getStockSelects.stockTimeFrame
-      }`;
+        url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=nvda,amd,intc,mu,tsm&types=quote,news,chart&range=${getStockSelects.stockTimeFrame}`;
     } else {
-      url = `https://api.iextrading.com/1.0/stock/${
-        getStockSelects.stockSymbol
-      }/batch?types=quote,news,chart&range=${getStockSelects.stockTimeFrame}`;
+      url = `https://api.iextrading.com/1.0/stock/${getStockSelects.stockSymbol}/batch?types=quote,news,chart&range=${getStockSelects.stockTimeFrame}`;
     }
 
     $.ajax({
@@ -120,7 +123,8 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     }).then(function(stockData) {
       document.querySelector(UISelectors.stockChartCard).style.display =
         "block";
-
+        document.querySelector('.movingAverage').disabled = false;
+        document.querySelector('.upperIndicators').disabled = false;
       ItemCtrl.mapStockData(stockData, chartStyle, getStockSelects);
     });
 
@@ -147,66 +151,51 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
         
     }
     
-//    const displayCurrencyTicker = function(){
-//        
-//        let BTC = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/quotes/current?filter_symbol_id=BITSTAMP_SPOT_BTC_USD&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`;
-//        let ETH = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/quotes/current?filter_symbol_id=BITSTAMP_SPOT_ETH_USD&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`;
-//        let XRP = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/quotes/current?filter_symbol_id=BITSTAMP_SPOT_XRP_USD&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`;
-//        let BCH = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/quotes/current?filter_symbol_id=BITSTAMP_SPOT_BCH_USD&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`;
-//        let XLM = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/quotes/current?filter_symbol_id=BITSTAMP_SPOT_XLM_USD&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`;
-//        let LTC = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/quotes/current?filter_symbol_id=BITSTAMP_SPOT_LTC_USD&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`;
-//        
-//        $.ajax({
-//              url: BTC,
-//              method: "GET"
-//            }).then(function(coinQuote) {
-//              console.log(coinQuote);
-//            });
-//        
-//        $.ajax({
-//              url: ETH,
-//              method: "GET"
-//            }).then(function(coinQuote) {
-//              console.log(coinQuote);
-//            })
-//        
-//        $.ajax({
-//              url: XRP,
-//              method: "GET"
-//            }).then(function(coinQuote) {
-//              console.log(coinQuote);
-//            })
-//        
-//        $.ajax({
-//              url: BCH,
-//              method: "GET"
-//            }).then(function(coinQuote) {
-//              console.log(coinQuote);
-//            })
-//        
-//        $.ajax({
-//              url: XLM,
-//              method: "GET"
-//            }).then(function(coinQuote) {
-//              console.log(coinQuote);
-//            })
-//        
-//        $.ajax({
-//              url: LTC,
-//              method: "GET"
-//            }).then(function(coinQuote) {
-//              console.log(coinQuote);
-//            })
-//        
-//        
-//    }
-   
+    const initCharts = function(){
+        let chartStyle = 'candlestick',
+            getStockSelects = {
+                stockSymbol: 'NVDA',
+                stockTimeFrame: '1y',
+                stockName: 'Nvidia'
+            },
+            getCurrSelects = {
+                cryptoCurrency: 'BTC',
+                cryptoCurrTimeFrame: '1YRS',
+                cryptoName: 'Bitcoin'
+            },
+            dateNow = new Date(),
+            dateNowISO = dateNow.toISOString(),
+            startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 12)).toISOString();
+        
+        
+        $.ajax({
+          url: `https://api.iextrading.com/1.0/stock/NVDA/batch?types=quote,news,chart&range=1y`,
+          method: "GET"
+        }).then(function(stockData) {
+          document.querySelector(UISelectors.stockChartCard).style.display =
+            "block";
+
+          ItemCtrl.mapStockData(stockData, chartStyle, getStockSelects);
+        }); 
+        
+        $.ajax({
+        url: `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_${getCurrSelects.cryptoCurrency}_USD/history?period_id=1DAY&time_start=${startTime}&time_end=${dateNowISO}&market=USD&limit=366&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`,
+        method: "GET",
+        crossDomain: true,
+    }).then(function(currencyData) {
+
+        document.querySelector(UISelectors.currChartCard).style.display = "block";
+
+        ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
+    });
+    }
 
   //Public Methods
   return {
     init: () => {
         loadEventListeners();
-//        displayCurrencyTicker();
+        
+        initCharts();
         
     }
   };

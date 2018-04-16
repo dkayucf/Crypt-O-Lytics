@@ -41,6 +41,50 @@ a:hover {
     white-space: nowrap
 }
 
+#bitcoinIcon{
+    width: 8%;
+    fill: #FF9900;
+}
+
+#etheriumIcon {
+    width: 8%;
+    fill: #3c3c3d;
+}
+
+#rippleIcon {
+    width: 8%;
+    fill: #006097;
+}
+
+#bchIcon {
+    width: 8%;
+    fill: #ee8c28;
+}
+
+#xlmIcon {
+    width: 8%;
+}
+
+#liteIcon {
+    width: 8%;
+    fill: #d3d3d3;
+}
+
+div#tickerTape {
+    background-color: #EBF0F1;
+}
+
+.up {
+		color: green;
+	}
+
+.down {
+    color: red;
+}
+
+span {
+    margin: 0 7px;
+}
 
 .display-4 {
     z-index: 2:
