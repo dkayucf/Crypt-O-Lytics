@@ -4,14 +4,13 @@ const ItemCtrl = (function(){
     //Public Methods
     return {
         mapCurrData: function(currData, chartStyle, getCurrSelects){
-
-            console.log(currData);
             
             Plotly.purge('currChartPlot');
 
             if(getCurrSelects.cryptoCurrency == 'currWeightAvg'){
                 console.log("HI KEVIN!!!!!");
                 ///////////// HERE KEVIN! ////////////////////
+                
             } else {
                 let trace1 = {},
 
@@ -143,25 +142,83 @@ const ItemCtrl = (function(){
         },
 
         mapStockData: function(stockData, chartStyle, getStockSelects){
+            
             //Purge any plots that may be present before displaying new plot
             Plotly.purge('stockChartPlot');
             
            //check if stock select is stock weight average
         if(getStockSelects.stockSymbol == 'stockWeightAvg'){
            //console.log(stockData);
+            let normalizedArr = [],
+                dateArr= [],
+                trace1,
+                data;
+            
             for(let stock in stockData){
                 
                 /******************KEVIN THIS IS WHERE YOU SHOULD START**************************************/
-                console.log(stockData[stock].chart[0].close);
-                console.log(stockData[stock].chart.map(stock=> stock.close));
+//                console.log(stockData[stock].chart[0].close);
+//                console.log(stockData[stock].chart.map(stock=> stock.close));
                 
                 const closingRatio = 1 / stockData[stock].chart[0].close;
                 const openRatio = 1 / stockData[stock].chart[0].open;
                 const highRatio = 1 / stockData[stock].chart[0].high;
                 const lowRatio = 1 / stockData[stock].chart[0].low;
-                console.log(`Closing: ${closingRatio}, Open: ${openRatio}, High: ${highRatio}, Low: ${lowRatio}`);
+                //console.log(`Closing: ${closingRatio}, Open: ${openRatio}, High: ${highRatio}, Low: ${lowRatio}`);
+                //console.log(stockData[stock].chart);  
+                let open = stockData[stock].chart.map(x=> (x.open * openRatio));
+                let date = stockData[stock].chart.map(x=> x.date);
+                normalizedArr.push(open);
+                dateArr.push(date)
             }
             
+            let normalizedArrTotal = [];
+            
+            for(let i = 0; i< normalizedArr[0].length; i++){
+               normalizedArrTotal.push(normalizedArr[0][i]+normalizedArr[1][i]+normalizedArr[2][i]+ normalizedArr[3][i]+normalizedArr[4][i]);
+            }
+
+             trace1 = {
+                    type: chartStyle,
+                    mode: "lines",
+                    x: dateArr[0],
+                    y: normalizedArrTotal,
+                    line: {color: '#17BECF'}
+                }
+                
+
+                data = [trace1];
+
+                let layout = {
+                      dragmode: 'zoom', 
+                      autosize: true,
+                      title: ` Normalized Price Chart`,
+                      margin: {
+                        r: 10, 
+                        t: 30, 
+                        b: 30, 
+                        l: 40
+                      }, 
+                      showlegend: false, 
+                      xaxis: {
+                        autorange: true, 
+                        domain: [0, 1], 
+                        range: [trace1.x[0], trace1.x[trace1.x.length-1]],
+                        rangeslider: {
+                            visible: false
+                        },
+                        type: 'date'
+                      }, 
+                      yaxis: {
+                        autorange: true, 
+                        domain: [.3, 1],   
+                        type: 'linear'
+                      }
+                      
+                };
+
+                Plotly.plot('stockChartPlot', data, layout);
+
    
         } else {
             

@@ -15,7 +15,7 @@
 
 <body class="container-fluid px-0 bg-secondary">
    <!-------------------------------------TOP NAVBAR NAVIGATION-------------------------------------->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <a class="navbar-brand" href="#">Logo Here</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -48,6 +48,35 @@
             
         </div>
     </nav>
+        <div class="row text-center bg-dark text-light py-2">
+                <div class="col-md-2  d-flex justify-content-center align-items-center">
+                    <h6 class="mr-2 mb-0">Bitcoin</h6>
+                    <div id="BTCQuote"></div>
+                </div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center">
+                    <h6 class="mr-2 mb-0">Etherium</h6>
+                    <div id="ETHQuote"></div>
+                </div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center">
+                    <h6 class="mr-2 mb-0">Ripple</h6>
+                    <div id="XRPQuote"></div>
+                </div> 
+                <div class="col-md-2  d-flex justify-content-center align-items-center">
+                    <h6 class="mr-2 mb-0">Bitcoin Cash</h6>
+                    <div id="BCHQuote"></div>
+                </div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center">
+                    <h6 class="mr-2 mb-0">Stellar</h6>
+                    <div id="XLMQuote"></div>
+                </div>
+                <div class="col-md-2  d-flex justify-content-center align-items-center">
+                    <h6 class="mr-2 mb-0">LiteCoin</h6>
+                    <div id="LTCQuote"></div>
+                </div>    
+       </div>
+
+    
+    
     <div class="row">
         <div class="col-md-2  bg-dark text-light p-0" id="sideBarCol">
 <!-------------------------------------SIDEBAR NAVIGATION-------------------------------------->
@@ -57,7 +86,7 @@
                         <div class="card techIndications border-right-0 border-left-0 rounded-0">
                             <div class="card-header panel-heading bg-secondary active rounded-0">
                                 <h6 class="d-inlinepanel-title mb-0 text-center">
-                                    <a class="collapsed addChevron" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Technical Indicators
+                                    <a class="collapsed addChevron" id="techIndicatorToggle" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Technical Indicators
                                                </a>
                                 </h6>
                             </div>
@@ -65,7 +94,7 @@
                                 <div class="card-body  panel-body bg-dark text-light ml-3">
                                     <div class="form-group">
                                         <label for="movingAverage" class='mb-0'>Moving Average:</label>
-                                        <select class="custom-select custom-select-sm my-2 movingAverage" required>
+                                        <select class="custom-select custom-select-sm my-2 movingAverage" disabled>
                                             <option value="none">None</option>
                                             <optgroup label="Simple Moving Average">
                                                 <option value="SMA">SMA</option>
@@ -81,7 +110,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="upperIndicators" class='mb-0'>Upper Indicators:</label>
-                                        <select class="custom-select custom-select-sm my-2 upperIndicators" required>
+                                        <select class="custom-select custom-select-sm my-2 upperIndicators" disabled>
                                             <optgroup label="UpperIndicators">
                                                 <option value="none">None</option>
                                                 <option value="nvda">MA Envelopes</option>
@@ -128,26 +157,7 @@
         
         <!-------------------------------------MAIN CONTENT BODY-------------------------------------->
         <div class="col-md-10">
-           <div class="row text-center bg-dark text-light border">
-                <div class="col-md-2">
-                    <h5>DJIA</h5>
-                </div>
-                <div class="col-md-2">
-                    <h5>S&amp;P500</h5>
-                </div>
-                <div class="col-md-2">
-                    <h5>Nasdaq</h5>
-                </div>
-                <div class="col-md-2">
-                    <h5>US 10 Yr</h5>
-                </div>
-                <div class="col-md-2">
-                    <h5>Crude Oil</h5>
-                </div>
-                <div class="col-md-2">
-                    <h5>Euro</h5>
-                </div>
-           </div>
+           
             <div class="row d-flex justify-content-center align-items-center mt-5">
                 <div class="col-md-5 border p-2 d-flex justify-content-center align-items-center mr-3 bg-dark text-light rounded">
                     <div class="container">
@@ -159,6 +169,7 @@
 
                         <div class="row">
                             <div class="col-md-12 pb-2">
+                               <input type="hidden" value="" id="hiddenStockInput">
                                 <select class="custom-select custom-select-sm my-2 techCompSelect" required>
                                             <option selected disabled hidden>Select Tech Company...</option>
                                             <option value="nvda">Nvidia</option>
@@ -229,13 +240,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 pb-2">
+                               <input type="hidden" value="" id="hiddenCurrencyInput">
                                 <select class="custom-select custom-select-sm my-2 cryptoCurrSelect" required>
                                             <option selected disabled hidden>Select Cryptocurrency...</option>
                                             <option value="BTC">Bitcoin</option>
                                             <option value="ETH">Ethereum</option>
                                             <option value="XRP">Ripple</option>
                                             <option value="BCH">Bitcoin Cash</option>
-                                            <option value="XLM">Stellar</option>
                                             <option value="currWeightAvg">Weighted Average</option>
                                         </select>
                                 <select class="custom-select custom-select-sm my-2 cryptoTimeFrame" required>
@@ -346,7 +357,6 @@
           </div>
           <div class="modal-footer bg-secondary text-light p-2 d-flex justify-content-end bg-dark border rounded-bottom">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-warning">Save changes</button>
           </div>
         </div>
       </div>
