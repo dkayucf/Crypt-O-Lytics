@@ -37,7 +37,9 @@ const UICtrl = (function(){
         XRPQuote: '#XRPQuote',
         BCHQuote: '#BCHQuote',
         XLMQuote: '#XLMQuote',
-        LTCQuote: '#LTCQuote'
+        LTCQuote: '#LTCQuote',
+        stockChartNews: '.stockChartNews',
+        cryotCurrencyNews: '.cryotCurrencyNews'
         
         
     }
@@ -62,7 +64,7 @@ const UICtrl = (function(){
             document.querySelector('#quoteModalTitle').innerHTML = `${quote.companyName} (${quote.symbol})`;
             
             let marketCap = UICtrl.formatNumber(quote.marketCap);
-            console.log(marketCap);
+
             let html1 = `<tr>
                 <td>$${quote.open}</td>
                 <td>$${quote.latestPrice}</td>
@@ -85,7 +87,34 @@ const UICtrl = (function(){
             
             $('#quickQuoteModal').modal('show');
         },
-        
+        displayNewsArticles: function(articles, newsType){
+
+            if(newsType == 'stocks'){
+                
+                document.querySelector(UISelectors.stockChartNews).innerHTML = '';
+                
+                articles.forEach(article=>{
+                   let articleCard = document.createElement('div'); 
+                        articleCard.classList = 'card my-2';
+                    let articleHeader = document.createElement('div');
+                        articleHeader.classList = 'card-header panel-heading bg-secondary active';
+                    let articleH6 = document.createElement('h6');
+                        articleH6.classList = 'd-inlinepanel-title';
+                        articleH6.innerHTML = `<a class="collapsed addChevron newsHeadline" href="${article.url}" target="_blank" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">${article.headline}</a>`;
+                    articleHeader.appendChild(articleH6);
+                    articleCard.appendChild(articleHeader);
+                    let articleSummary = document.createElement('div');
+                        articleSummary.classList = 'panel-collapse collapse show';
+                        articleSummary.id = 'collapseTwo';
+                        articleSummary.innerHTML = `<div class="card-body  panel-body bg-dark text-light">
+                                                        <p>${article.summary}</p>    
+                                                    </div>`;
+                    articleCard.appendChild(articleSummary);
+                    
+                    document.querySelector(UISelectors.stockChartNews).appendChild(articleCard);
+                });
+            }
+        },
         getStockSelects: function(){
             const stockSymbolSelect = document.querySelector(UISelectors.techCompSelect);
             const stockSymbolSelectValue = stockSymbolSelect.options[stockSymbolSelect.selectedIndex].value;
