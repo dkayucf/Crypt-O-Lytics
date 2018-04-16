@@ -1,3 +1,17 @@
+/* GLOBAL */
+.container-fluid {
+    font-family: 'Work Sans', sans-serif;
+}
+
+#main-content-body {
+    background-image:
+    linear-gradient(
+      to bottom right, 
+      rgb(0, 0, 0),
+      #25282b,
+      #343a40
+    );
+}
 
 a {
     color: #f8f9fa;
@@ -9,46 +23,46 @@ a:hover {
     text-decoration: none;
 }
 
-#stockWeightAvg{
-    display: none;
+h5 {
+    font-size: 14px;
+    color: #7EB723;
+    text-transform: uppercase;
+    margin: 10px 0;
 }
 
-#cryptoWeightAvg{
-    display: none;
+/* TOP NAV */
+#cl-logo {
+    height: 65%;
+    width: 65%;
+    margin: 0 20px;
 }
 
-#stockChartPlot{
-    height: 500px;
+.navbar {
+    border-bottom: 1px solid #000;
 }
 
-#stockChartCard{
-    display: none;
+#stock-ticker {
+    background-image:
+    linear-gradient(
+        to right,
+      rgb(0, 0, 0),
+      #25282b
+    );
+    border-bottom: 1px solid #343a40;
 }
 
-#currChartPlot{
-    height: 500px;
-}
-
+/* SIDE NAV */
 #sideBarCol {
     height: 100vh;
 }
 
-#currChartCard{
-    display: none;
-}
-
-.taiwanLabel{
-    white-space: nowrap
-}
-
-
-.display-4 {
-    z-index: 2:
-}
-
-#logo {
-    height: 50%;
-    width: 50%;
+#sideBarCol {
+    background-image:
+    linear-gradient(
+      to top right, 
+      #343a40, rgb(0, 0, 0)
+    );
+    border-right: 1px solid #343a40;
 }
 
 .panel-title>.addChevron, .panel-title>.addChevron:active{
@@ -77,8 +91,44 @@ a:hover {
 } 
 
 .custom-select:disabled {
-    color: #6c757d;
-    background-color: #ababab;
+    color: #000000;
+    background-color: #6c757d;
 }
 
+/* CHARTS */
+#stockWeightAvg{
+    display: none;
+}
 
+#cryptoWeightAvg{
+    display: none;
+}
+
+#stockChartPlot{
+    height: 500px;
+}
+
+#stockChartCard{
+    display: none;
+}
+
+#currChartPlot{
+    height: 500px;
+}
+
+#currChartCard{
+    display: none;
+}
+
+.taiwanLabel{
+    white-space: nowrap
+}
+
+.display-4 {
+    z-index: 2;
+}
+
+#logo {
+    height: 50%;
+    width: 50%;
+}
