@@ -154,6 +154,11 @@ span {
 
 }
 
+.modal-dialog {
+    max-width: 550px;
+    margin: 1.75rem auto;
+}
+
 .panel-title>.addChevron, .panel-title>.addChevron:active{
     text-decoration:none;
 }
@@ -181,6 +186,10 @@ span {
 
 .custom-select:disabled {
     color: #000000;
+    background-color: #6c757d;
+}
+
+.form-control:disabled {
     background-color: #6c757d;
 }
 

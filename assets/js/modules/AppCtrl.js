@@ -1,44 +1,49 @@
 //==============APP CONTROLLER=================
-const AppCtrl = (function(ItemCtrl, UICtrl) {
-  //Get UI selectors
-  const UISelectors = UICtrl.getSelectors();
+const AppCtrl = (function (ItemCtrl, UICtrl) {
+    //Get UI selectors
+    const UISelectors = UICtrl.getSelectors();
 
-  const loadEventListeners = () => {
-    /*----------------INPUT Events-----------------*/
-    /*----------------CLICK Events-----------------*/
-    //Draw Stock Chart Submit Click
-    document.querySelector(UISelectors.drawStockChartBtn).addEventListener("click", drawStockChart);
-    
-    //Draw Currency Chart Submit Click
-    document.querySelector(UISelectors.drawCurrChartBtn).addEventListener("click", drawCurrChart);
-      
-    document.querySelector(UISelectors.quickQuoteBtn).addEventListener('click', displayQuote);
+    //***********************EVENT LISTENTERS**************************//
+    const loadEventListeners = () => {
 
-    /*----------------CHANGE Events-----------------*/
-    document.querySelector(UISelectors.techCompSelect).addEventListener("change", () => {
-        const getStockSelects = UICtrl.getStockSelects();
+        /*----------------CLICK Events-----------------*/
+        //Draw Stock Chart Submit Click
+        document.querySelector(UISelectors.drawStockChartBtn).addEventListener("click", drawStockChart);
+
+        //Draw Currency Chart Submit Click
+        document.querySelector(UISelectors.drawCurrChartBtn).addEventListener("click", drawCurrChart);
+
+        document.querySelector(UISelectors.quickQuoteBtn).addEventListener('click', displayQuote);
         
+        document.querySelector(UISelectors.indicatorsUpdateBtn).addEventListener('click', drawTechnicalIndicators);
+
+        /*----------------CHANGE Events-----------------*/
+        document.querySelector(UISelectors.techCompSelect).addEventListener("change", () => {
+            const getStockSelects = UICtrl.getStockSelects();
+
             if (getStockSelects.stockSymbol == "stockWeightAvg") {
-               document.querySelector(UISelectors.stockWeightAvg).style.display = "block";
+                document.querySelector(UISelectors.stockWeightAvg).style.display = "block";
                 let stockChartStyle = document.querySelector(UISelectors.stockChartStyle);
                 stockChartStyle.disabled = true;
                 stockChartStyle.value = 'scatter';
+                document.querySelector(UISelectors.movingAverage).disabled = true;
+                document.querySelector(UISelectors.upperIndicators).disabled = true;
 
             } else {
                 document.querySelector(UISelectors.stockWeightAvg).style.display = "none";
                 let stockChartStyle = document.querySelector(UISelectors.stockChartStyle);
                 stockChartStyle.disabled = false;
-                stockChartStyle.selectedIndex=0;
+                stockChartStyle.selectedIndex = 0;
                 document.querySelector(UISelectors.techTimeFrame).selectedIndex = 0;
             }
-      });
-      
-      
-      document.querySelector(UISelectors.cryptoCurrSelect).addEventListener("change", () => {
-        const getCurrSelects = UICtrl.getCurrChart();
-        
+        });
+
+
+        document.querySelector(UISelectors.cryptoCurrSelect).addEventListener("change", () => {
+            const getCurrSelects = UICtrl.getCurrChart();
+
             if (getCurrSelects.cryptoCurrency == "currWeightAvg") {
-               document.querySelector(UISelectors.cryptoWeightAvg).style.display = "block";
+                document.querySelector(UISelectors.cryptoWeightAvg).style.display = "block";
                 let currChartStyle = document.querySelector(UISelectors.cryptoChartStyle);
                 currChartStyle.disabled = true;
                 currChartStyle.value = 'scatter';
@@ -47,43 +52,61 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
                 document.querySelector(UISelectors.cryptoWeightAvg).style.display = "none";
                 let currChartStyle = document.querySelector(UISelectors.cryptoChartStyle);
                 currChartStyle.disabled = false;
-                currChartStyle.selectedIndex=0;
+                currChartStyle.selectedIndex = 0;
                 document.querySelector(UISelectors.cryptoTimeFrame).selectedIndex = 0;
             }
-      });
-      
-      
-      
-      document.querySelector(UISelectors.techTimeFrame).addEventListener("change", () => {
-        const getStockSelects = UICtrl.getStockSelects();
+        });
+
+        document.querySelector(UISelectors.techTimeFrame).addEventListener("change", () => {
+            const getStockSelects = UICtrl.getStockSelects();
+            const getCurrSelects = UICtrl.getCurrChart();
+
+            if (getStockSelects.stockTimeFrame && getStockSelects.stockSymbol !== 'stockWeightAvg') {
+                document.querySelector(UISelectors.movingAverage).disabled = false;
+                document.querySelector(UISelectors.upperIndicators).disabled = false;
+                document.querySelector(UISelectors.smaNDays).disabled = false;
+                document.querySelector(UISelectors.indicatorsUpdateBtn).disabled = false;
+            } 
+        });
         
-        if(getStockSelects.stockTimeFrame && getStockSelects.stockSymbol !== 'stockWeightAvg'){
-            document.querySelector(UISelectors.movingAverage).disabled = false;
-            document.querySelector(UISelectors.upperIndicators).disabled = false;
-        }
-      });
-      
-    document.querySelector(UISelectors.movingAverage).addEventListener('change', (e)=>{
+        document.querySelector(UISelectors.cryptoTimeFrame).addEventListener("change", () => {
+            const getCurrSelects = UICtrl.getCurrChart();
+
+            if (getCurrSelects.cryptoCurrTimeFrame && getCurrSelects.cryptoCurrency !== "currWeightAvg") {
+                document.querySelector(UISelectors.movingAverage).disabled = false;
+                document.querySelector(UISelectors.upperIndicators).disabled = false;
+                document.querySelector(UISelectors.smaNDays).disabled = false;
+                document.querySelector(UISelectors.indicatorsUpdateBtn).disabled = false;
+            } 
+        });
+
+        document.querySelector(UISelectors.movingAverage).addEventListener('change', (e) => { 
+            const selectBox = e.target;
+            const selectedIndex = selectBox.options[selectBox.selectedIndex].value;
+            
+        });
+    };
+    //***************END OF EVENT LISTENERS************************/
+
+    const drawTechnicalIndicators = function(){
         const getStockSelects = UICtrl.getStockSelects();
-        const getCurrencyInput = UICtrl.getCurrChart();
-        const selectBox = e.target;
-        const selectedIndex = selectBox.options[selectBox.selectedIndex].value;
-
-    });
-  };
-
-    const drawCurrChart = function() {
         const getCurrSelects = UICtrl.getCurrChart();
-
-        const chartStyle = UICtrl.getChartStyle(UISelectors.cryptoChartStyle);
-
+        const smaSelect = document.querySelector(UISelectors.movingAverage);
+        const smaSelectedIndex = smaSelect.options[smaSelect.selectedIndex].value;
+        const smaUserInput = document.querySelector(UISelectors.smaNDays).value;
+        const upperIndicators = document.querySelector(UISelectors.upperIndicators);
+        const upperSelectedIndex = upperIndicators.options[upperIndicators.selectedIndex].value;
+        
         let url,
             limit,
             dateNow = new Date(),
             dateNowISO = dateNow.toISOString(),
-            coinsArray = ['BTC', 'ETH', 'XRP', 'BCH', 'LTC'];
-
-          switch(getCurrSelects.cryptoCurrTimeFrame) {
+            currencyChartStyle = UICtrl.getChartStyle(UISelectors.cryptoChartStyle),
+            stockChartStyle = UICtrl.getChartStyle(UISelectors.stockChartStyle);
+   
+        if(getCurrSelects.cryptoCurrency !== 'Select Cryptocurrency...'){
+            
+            switch (getCurrSelects.cryptoCurrTimeFrame) {
                 case '1YRS':
                     limit = 365;
                     break;
@@ -96,120 +119,180 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
                 case '1MTH':
                     limit = 30;
                     break;
-            }  
-
-        if (getCurrSelects.cryptoCurrency == "currWeightAvg") {
-                      
-           let coinsDataArr = [];
-                coinsArray.forEach(coin=>{
-                    
-                    let url = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=USD&limit=${limit}`;
-                
-                    $.ajax({
-                        url: url,
-                        method: "GET",
-                        crossDomain: true,
-                    }).then(function(currencyData) {
-
-                        currencyData = currencyData.Data;
-
-                         currencyData.forEach(datum=>{
-                             datum.time = new Date(datum.time*1000).toISOString().split('T')[0]; 
-                         });
-
-                        coinsDataArr.push(currencyData);
-
-                        ItemCtrl.mapCurrData(coinsDataArr, chartStyle, getCurrSelects)
-                        document.querySelector(UISelectors.currChartCard).style.display = 'block';
-                        document.querySelector('.movingAverage').disabled = false;
-                        document.querySelector('.upperIndicators').disabled = false;
-                    });    
-                    
-                });
-                
-
-            
-            
-        } else {
+            }
 
             url = `https://min-api.cryptocompare.com/data/histoday?fsym=${getCurrSelects.cryptoCurrency}&tsym=USD&limit=${limit}`;
-            
+
             $.ajax({
                 url: url,
                 method: "GET",
                 crossDomain: true,
-            }).then(function(currencyData) {
+            }).then(function (currencyData) {
+                currencyData = currencyData.Data;
+
+                currencyData.forEach(datum => {
+                    datum.time = new Date(datum.time * 1000).toISOString().split('T')[0];
+                });
+
+                
+                let closeData = currencyData.map(datum=> datum.close);
+                let date = currencyData.map(datum => datum.time);
+                
+                ItemCtrl.techinalIndicatorData(closeData, date, currencyChartStyle, getCurrSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, 'crypto');
+
+            });    
+        }
+        
+        if(getStockSelects.stockName !== 'Select Tech Company...'){
+            url = `https://api.iextrading.com/1.0/stock/${getStockSelects.stockSymbol}/batch?types=quote,news,chart&range=${getStockSelects.stockTimeFrame}`;
+            
+            $.ajax({
+                url: url,
+                method: "GET"
+            }).then(function (stockData) {
+                stockData = stockData.chart;
+                
+                let closeData = stockData.map(datum=> datum.close);
+                let date = stockData.map(datum => datum.date);
+                
+                ItemCtrl.techinalIndicatorData(closeData, date, stockChartStyle, getStockSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, 'stock');
+            });
+        }
+        
+        
+    }
+    
+    
+    const drawCurrChart = function () {
+        const getCurrSelects = UICtrl.getCurrChart();
+
+        const chartStyle = UICtrl.getChartStyle(UISelectors.cryptoChartStyle);
+
+        let url,
+            limit,
+            dateNow = new Date(),
+            dateNowISO = dateNow.toISOString(),
+            coinsArray = ['BTC', 'ETH', 'XRP', 'BCH', 'LTC'];
+
+        switch (getCurrSelects.cryptoCurrTimeFrame) {
+            case '1YRS':
+                limit = 365;
+                break;
+            case '6MTH':
+                limit = 183;
+                break;
+            case '3MTH':
+                limit = 91;
+                break;
+            case '1MTH':
+                limit = 30;
+                break;
+        }
+
+        if (getCurrSelects.cryptoCurrency == "currWeightAvg") {
+
+            let coinsDataArr = [];
+            coinsArray.forEach(coin => {
+
+                let url = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=USD&limit=${limit}`;
+
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    crossDomain: true,
+                }).then(function (currencyData) {
+
+                    currencyData = currencyData.Data;
+
+                    currencyData.forEach(datum => {
+                        datum.time = new Date(datum.time * 1000).toISOString().split('T')[0];
+                    });
+
+                    coinsDataArr.push(currencyData);
+
+                    ItemCtrl.mapCurrData(coinsDataArr, chartStyle, getCurrSelects)
+                    document.querySelector(UISelectors.currChartCard).style.display = 'block';
+                });
+
+            });
+
+        } else {
+
+            url = `https://min-api.cryptocompare.com/data/histoday?fsym=${getCurrSelects.cryptoCurrency}&tsym=USD&limit=${limit}`;
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                crossDomain: true,
+            }).then(function (currencyData) {
                 currencyData = currencyData.Data;
 
                 document.querySelector(UISelectors.currChartCard).style.display = "block";
 
-                 currencyData.forEach(datum=>{
-                     datum.time = new Date(datum.time*1000).toISOString().split('T')[0]; 
-                 });
+                currencyData.forEach(datum => {
+                    datum.time = new Date(datum.time * 1000).toISOString().split('T')[0];
+                });
 
                 ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
 
             });
-            
+
         }
 
-  };
-    
+    };
 
-  const drawStockChart = function() {
-      
-    const getStockSelects = UICtrl.getStockSelects();
+    const drawStockChart = function () {
 
-    const chartStyle = UICtrl.getChartStyle(UISelectors.stockChartStyle);
-           
-    if(getStockSelects.stockTimeFrame == 'Select time frame...'){
-        getStockSelects.stockTimeFrame = '1y';
-        document.querySelector(UISelectors.techTimeFrame).value = '1y';
-    }  
+        const getStockSelects = UICtrl.getStockSelects();
 
-    let url;
+        const chartStyle = UICtrl.getChartStyle(UISelectors.stockChartStyle);
 
-    if (getStockSelects.stockSymbol == "stockWeightAvg") {
-        url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=nvda,amd,intc,mu,tsm&types=quote,news,chart&range=${getStockSelects.stockTimeFrame}`;
-    } else {
-      url = `https://api.iextrading.com/1.0/stock/${getStockSelects.stockSymbol}/batch?types=quote,news,chart&range=${getStockSelects.stockTimeFrame}`;
-    }
+        if (getStockSelects.stockTimeFrame == 'Select time frame...') {
+            getStockSelects.stockTimeFrame = '1y';
+            document.querySelector(UISelectors.techTimeFrame).value = '1y';
+        }
 
-    $.ajax({
-      url: url,
-      method: "GET"
-    }).then(function(stockData) {
-      document.querySelector(UISelectors.stockChartCard).style.display =
-        "block";
-        document.querySelector('.movingAverage').disabled = false;
-        document.querySelector('.upperIndicators').disabled = false;
-      ItemCtrl.mapStockData(stockData, chartStyle, getStockSelects);
-    });
+        let url;
+
+        if (getStockSelects.stockSymbol == "stockWeightAvg") {
+            url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=nvda,amd,intc,mu,tsm&types=quote,news,chart&range=${getStockSelects.stockTimeFrame}`;
+        } else {
+            url = `https://api.iextrading.com/1.0/stock/${getStockSelects.stockSymbol}/batch?types=quote,news,chart&range=${getStockSelects.stockTimeFrame}`;
+        }
+
+        $.ajax({
+            url: url,
+            method: "GET"
+        }).then(function (stockData) {
+            document.querySelector(UISelectors.stockChartCard).style.display =
+                "block";
+            ItemCtrl.mapStockData(stockData, chartStyle, getStockSelects);
+        });
 
 
-  };
-    
-    const displayQuote = function(){
-        
+    };
+
+    const displayQuote = function () {
+
         let stockSymbol = document.querySelector(UISelectors.quickQuoteInput).value,
             url;
-        
-        if(stockSymbol.length > 4 || stockSymbol == ''){
+
+        if (stockSymbol.length > 4 || stockSymbol == '') {
             alert('please fill in a proper stock symbol');
-        }else{
+        } else {
             url = `https://api.iextrading.com/1.0/stock/${stockSymbol}/quote`;
-            
+
             $.ajax({
-              url: url,
-              method: "GET"
-            }).then(function(stockData) {
-              UICtrl.displayStockQuote(stockData);
+                url: url,
+                method: "GET"
+            }).then(function (stockData) {
+                UICtrl.displayStockQuote(stockData);
             });
         }
-        
+
     }
-    
-    const initCharts = function(){
+
+    const initCharts = function () {
         let chartStyle = 'candlestick',
             getStockSelects = {
                 stockSymbol: 'NVDA',
@@ -222,43 +305,41 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
             },
             dateNow = new Date(),
             dateNowISO = dateNow.toISOString(),
-            startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 12)).toISOString();
-        
-        
-        $.ajax({
-          url: `https://api.iextrading.com/1.0/stock/NVDA/batch?types=quote,news,chart&range=1y`,
-          method: "GET"
-        }).then(function(stockData) {
-          document.querySelector(UISelectors.stockChartCard).style.display =
-            "block";
+            startTime = new Date(dateNow.setMonth(dateNow.getMonth() - 12)).toISOString();
 
-          ItemCtrl.mapStockData(stockData, chartStyle, getStockSelects);
-        }); 
-        
+
         $.ajax({
-        url: `https://min-api.cryptocompare.com/data/histoday?fsym=${getCurrSelects.cryptoCurrency}&tsym=USD&limit=365`,
-        method: "GET",
-        crossDomain: true,
-    }).then(function(currencyData) {
+            url: `https://api.iextrading.com/1.0/stock/NVDA/batch?types=quote,news,chart&range=1y`,
+            method: "GET"
+        }).then(function (stockData) {
+            document.querySelector(UISelectors.stockChartCard).style.display =
+                "block";
+
+            ItemCtrl.mapStockData(stockData, chartStyle, getStockSelects);
+        });
+
+        $.ajax({
+            url: `https://min-api.cryptocompare.com/data/histoday?fsym=${getCurrSelects.cryptoCurrency}&tsym=USD&limit=365`,
+            method: "GET",
+            crossDomain: true,
+        }).then(function (currencyData) {
             currencyData = currencyData.Data;
-        document.querySelector(UISelectors.currChartCard).style.display = "block";
+            document.querySelector(UISelectors.currChartCard).style.display = "block";
 
-        ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
-    });
+            ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
+        });
     }
 
-  //Public Methods
-  return {
-    init: () => {
-        loadEventListeners();
-        
-        initCharts();
-        
-    }
-  };
+    //Public Methods
+    return {
+        init: () => {
+            loadEventListeners();
+
+            initCharts();
+
+        }
+    };
 })(ItemCtrl, UICtrl);
 
 
 AppCtrl.init();
-
-
