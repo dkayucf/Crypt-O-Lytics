@@ -131,6 +131,7 @@ span {
 
 .panel-title>.addChevron, .panel-title>.addChevron:active{
     text-decoration:none;
+}
 
 .panel-heading .addChevron:before {
   display: inline-block;
