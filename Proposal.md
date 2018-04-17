@@ -1,39 +1,46 @@
-# Crypt-O-Keepers
+crypt-O-lytics
+===============
 
 ### Team Name
 
-CryptKeepers
+thecryptkeepers
 
 ### Team Members
 
-* Christine Pablo
-* Darren Kay
-* Kevin Murtaugh
+-   Christine Pablo
+
+-   Darren Kay
+
+-   Kevin Murtaugh
 
 ### Rough Breakdown of Tasks
 
-* Christine (Team Lead/Front End)
-* Darren (Backend)
-* Kevin (Front End/Back End Support)
+-   Christine (Team Lead/Front End Support)
+
+-   Darren (Development Lead)
+
+-   Kevin (Concept / Data Normalization / Back End Support)
 
 ### Project Title
 
-Bitcoin Bits n' Pieces
+Bitcoin Bits n' Pieces –Crypt-O-Lytics
 
 ### Project Description
 
-Build a multi-variate comparison tool suitable for finding the correlation between the price of bitcoin and the implied demand of bitcoin mining equipment.
+Build a multi-variate comparison tool suitable for charting mainstream
+investment vehicles against less-common or non-publicly-traded data series. It
+is left to the users to define what to compare & also to determine any
+correlation or non-correlation among different data series.
 
 ### APIs to Be Used
 
-Coinbase
-IEX Trading
-(need API to grab news articles and videos on blockchain and mining)
-newsinapp
+* IEX Trading
+* CryptoCompare
 
 ### Sketch of Final Product
 
-![Rough Sketch](/assets/images/rough_sketch.jpg)
+![Rough Sketch](assets/images/rough_sketch.jpg)
+
 
 ### Link to Trello
 

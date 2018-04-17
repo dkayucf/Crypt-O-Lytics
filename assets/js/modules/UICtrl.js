@@ -96,6 +96,7 @@ const UICtrl = (function () {
 
                 document.querySelector(UISelectors.stockChartNews).innerHTML = '';
 
+
                 articles.forEach((article, index) => {
 
                     if (index < 5) {
@@ -103,13 +104,16 @@ const UICtrl = (function () {
                         articleCard.classList = 'card m-2 col-md-3 p-0 bg-dark';
                         let articleHeader = document.createElement('div');
                         articleHeader.classList = 'card-header panel-heading bg-secondary text-center';
+
                         let articleH5 = document.createElement('h5');
                         articleH5.classList = 'd-inlinepanel-title text-danger';
                         articleH5.innerHTML = `<a class="newsHeadline" href="${article.url}" target="_blank">${article.headline}</a>`;
                         articleHeader.appendChild(articleH5);
                         articleCard.appendChild(articleHeader);
                         let articleSummary = document.createElement('div');
+
                         articleSummary.innerHTML = `<div class="card-body newsSummary panel-body bg-dark text-light">
+
                                                             <p>${article.summary}</p>    
                                                         </div>`;
                         articleCard.appendChild(articleSummary);
