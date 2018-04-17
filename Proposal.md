@@ -1,9 +1,9 @@
-Crypt-O-Keepers
+crypt-O-lytics
 ===============
 
 ### Team Name
 
-CryptKeepers--- Crypt-O-Lytics
+thecryptkeepers
 
 ### Team Members
 
@@ -15,11 +15,11 @@ CryptKeepers--- Crypt-O-Lytics
 
 ### Rough Breakdown of Tasks
 
--   Christine (Team Lead/Front End)
+-   Christine (Team Lead/Front End Support)
 
--   Darren (Backend)
+-   Darren (Development Lead)
 
--   Kevin (Concept /Data Normalization /Front End/Back End Support)
+-   Kevin (Concept / Data Normalization / Back End Support)
 
 ### Project Title
 
@@ -34,14 +34,13 @@ correlation or non-correlation among different data series.
 
 ### APIs to Be Used
 
-Coinbase IEX Trading (need API to grab news articles and videos on blockchain
-and mining) newsinapp
+* IEX Trading
+* CryptoCompare
 
 ### Sketch of Final Product
 
-Rough Sketch
+![Rough Sketch](assets/images/rough_sketch.jpg)
 
-Rough Sketch
 
 ### Link to Trello
 
