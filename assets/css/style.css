@@ -42,6 +42,11 @@ hr {
 }
 
 /* TICKER TAPE */
+#tickerTape {
+    padding: 0 15px;
+    margin: 0;
+}
+
 .taiwanLabel {
   white-space: nowrap;
 }
@@ -91,7 +96,7 @@ div#tickerTape {
 }
 
 .price-display {
-  margin: 20px 0;
+    font-size: 13px;
 }
 
 span {
@@ -199,7 +204,7 @@ span {
   font-size: 14px;
   color: #7eb723;
   text-transform: uppercase;
-  margin: 0 0 20px 50px;
+  margin: 0 0 20px 76px;
 }
 
 p {
