@@ -9,6 +9,7 @@ const UICtrl = (function(){
         
         //Inputs
         stockWeightAvg: '#stockWeightAvg',
+        cryptoWeightAvg: '#cryptoWeightAvg',
         quickQuoteInput: '#quickQuoteInput',
         hiddenCurrencyInput: '#hiddenCurrencyInput',
         hiddenStockInput: '#hiddenStockInput',
@@ -93,25 +94,27 @@ const UICtrl = (function(){
                 
                 document.querySelector(UISelectors.stockChartNews).innerHTML = '';
                 
-                articles.forEach(article=>{
-                   let articleCard = document.createElement('div'); 
-                        articleCard.classList = 'card my-2';
-                    let articleHeader = document.createElement('div');
-                        articleHeader.classList = 'card-header panel-heading bg-secondary active';
-                    let articleH6 = document.createElement('h6');
-                        articleH6.classList = 'd-inlinepanel-title';
-                        articleH6.innerHTML = `<a class="collapsed addChevron newsHeadline" href="${article.url}" target="_blank" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">${article.headline}</a>`;
-                    articleHeader.appendChild(articleH6);
-                    articleCard.appendChild(articleHeader);
-                    let articleSummary = document.createElement('div');
-                        articleSummary.classList = 'panel-collapse collapse show';
-                        articleSummary.id = 'collapseTwo';
-                        articleSummary.innerHTML = `<div class="card-body  panel-body bg-dark text-light">
-                                                        <p>${article.summary}</p>    
-                                                    </div>`;
-                    articleCard.appendChild(articleSummary);
+                articles.forEach((article, index)=>{
                     
-                    document.querySelector(UISelectors.stockChartNews).appendChild(articleCard);
+                    if(index < 5){
+                        let articleCard = document.createElement('div'); 
+                        articleCard.classList = 'card m-2 col-md-3 p-0 bg-dark';
+                        let articleHeader = document.createElement('div');
+                            articleHeader.classList = 'card-header panel-heading bg-secondary text-center';
+                        let articleH5 = document.createElement('h5');
+                            articleH5.classList = 'd-inlinepanel-title text-danger';
+                            articleH5.innerHTML = `<a class="newsHeadline" href="${article.url}" target="_blank">${article.headline}</a>`;
+                        articleHeader.appendChild(articleH5);
+                        articleCard.appendChild(articleHeader);
+                        let articleSummary = document.createElement('div');
+                            articleSummary.innerHTML = `<div class="card-body newsSummary panel-body bg-dark text-light">
+                                                            <p>${article.summary}</p>    
+                                                        </div>`;
+                        articleCard.appendChild(articleSummary);
+
+                        document.querySelector(UISelectors.stockChartNews).appendChild(articleCard);    
+                    }
+
                 });
             }
         },
@@ -159,16 +162,6 @@ const UICtrl = (function(){
         },
         getSelectors: () => {
             return UISelectors;
-        },
-        toggleMenuState: (menuToggle) =>{
-            if(menuToggle.classList.contains('addChevron')){
-                if(!menuToggle.parentElement.parentElement.classList.contains('active')){
-                    menuToggle.parentElement.parentElement.classList = 'card-header panel-heading bg-secondary active';
-                }else if (menuToggle.parentElement.parentElement.classList.contains('active')) {
-                    menuToggle.parentElement.parentElement.classList = 'card-header panel-heading bg-dark';
-                }
-            }
-            
         },
         resetSelects: () => {
             let selectsArr = Array.from(document.querySelectorAll('select'));

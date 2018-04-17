@@ -3,13 +3,81 @@ const ItemCtrl = (function(){
  
     //Public Methods
     return {
-        mapCurrData: function(currData, chartStyle, getCurrSelects){
-            
+
+         mapCurrData: function(currData, chartStyle, getCurrSelects){
+                     
             Plotly.purge('currChartPlot');
 
             if(getCurrSelects.cryptoCurrency == 'currWeightAvg'){
-                console.log("HI KEVIN!!!!!");
-                ///////////// HERE KEVIN! ////////////////////
+                
+                if(currData.length === 5){
+                    
+                     let normalizedArr = [],
+                        dateArr= [],
+                        trace1,
+                        data;
+                    
+                    currData.forEach((datum, index, arr)=>{
+                        //console.log(datum)
+                        const openRatio = 1 / datum[0].open;
+                        const closingRatio = 1 / datum[0].close;
+                        const highRatio = 1 / datum[0].high;
+                        const lowRatio = 1 / datum[0].low;
+                        //console.log(`Closing: ${closingRatio}, Open: ${openRatio}, High: ${highRatio}, Low: ${lowRatio}`);
+                        
+                        let open = datum.map(x=> (x.open * openRatio));
+                        let date = datum.map(x=> x.time);
+                        normalizedArr.push(open);
+                        dateArr.push(date);
+                    });
+                    
+                    let normalizedArrTotal = [];
+            
+                    for(let i = 0; i< normalizedArr[0].length; i++){
+                       normalizedArrTotal.push(normalizedArr[0][i]+normalizedArr[1][i]+normalizedArr[2][i]+ normalizedArr[3][i]+normalizedArr[4][i]);
+                    }
+                    
+                    trace1 = {
+                        type: chartStyle,
+                        mode: "lines",
+                        x: dateArr[0],
+                        y: normalizedArrTotal,
+                        line: {color: '#17BECF'}
+                    }
+
+
+                    data = [trace1];
+
+                    let layout = {
+                          dragmode: 'zoom', 
+                          autosize: true,
+                          title: ` Normalized Cryptocurrency Price Chart`,
+                          margin: {
+                            r: 10, 
+                            t: 30, 
+                            b: 30, 
+                            l: 40
+                          }, 
+                          showlegend: false, 
+                          xaxis: {
+                            autorange: true, 
+                            domain: [0, 1], 
+                            range: [trace1.x[0], trace1.x[trace1.x.length-1]],
+                            rangeslider: {
+                                visible: true
+                            },
+                            type: 'date'
+                          }, 
+                          yaxis: {
+                            autorange: true, 
+                            domain: [0, 1],   
+                            type: 'linear'
+                          }
+
+                    };
+
+                    Plotly.plot('currChartPlot', data, layout);
+                }
                 
             } else {
                 let trace1 = {},
@@ -23,14 +91,14 @@ const ItemCtrl = (function(){
                     trace1 = {
                         type: chartStyle,
                         mode: "lines",
-                        x: currData.map(datum => datum.time_period_start.split('T')[0]),
-                        y: currData.map(datum => datum.price_close),
+                        x: currData.map(datum => datum.time),
+                        y: currData.map(datum => datum.close),
                         line: {color: '#17BECF'}
                     }
                     
                     volume = {
-                        x: currData.map(datum => datum.time_period_start.split('T')[0]),
-                        y: currData.map(datum => datum.volume_traded),
+                        x: currData.map(datum => datum.time),
+                        y: currData.map(datum => datum.volumeto),
                         xaxis: 'x2',
                         yaxis: 'y2',
                         type: 'bar'    
@@ -76,23 +144,24 @@ const ItemCtrl = (function(){
                     Plotly.plot('currChartPlot', data, layout); 
                     
                 }else {
+
                     trace1 = {
-                        x: currData.map(datum => datum.time_period_start.split('T')[0]),
-                        close: currData.map(datum => datum.price_close), 
+                        x: currData.map(datum => datum.time),
+                        close: currData.map(datum => datum.close), 
                         decreasing: {line: {color: '#7F7F7F'}}, 
-                        high: currData.map(datum => datum.price_high), 
+                        high: currData.map(datum => datum.high), 
                         increasing: {line: {color: '#17BECF'}}, 
                         line: {color: 'rgba(31,119,180,1)'}, 
-                        low: currData.map(datum => datum.price_low), 
-                        open: currData.map(datum => datum.price_open), 
+                        low: currData.map(datum => datum.low), 
+                        open: currData.map(datum => datum.open), 
                         type: chartStyle, 
                         xaxis: 'x', 
                         yaxis: 'y'
                     };
                     
                     volume = {
-                        x: currData.map(datum => datum.time_period_start.split('T')[0]),
-                        y: currData.map(datum => datum.volume_traded),
+                        x: currData.map(datum => datum.time),
+                        y: currData.map(datum => datum.volumeto),
                         xaxis: 'x2',
                         yaxis: 'y2',
                         type: 'bar'    
@@ -140,10 +209,8 @@ const ItemCtrl = (function(){
 
             }
         },
-
         mapStockData: function(stockData, chartStyle, getStockSelects){
 
-            //UICtrl.displayNewsArticles(stockData.news, 'stocks');
             
             if(chartStyle == 'Select Chart Style...'){
                 chartStyle = 'candlestick';
@@ -156,11 +223,11 @@ const ItemCtrl = (function(){
             
            //check if stock select is stock weight average
         if(getStockSelects.stockSymbol == 'stockWeightAvg'){
-           //console.log(stockData);
+
             let normalizedArr = [],
                 dateArr= [],
-                trace1,
-                data;
+                data,
+                trace1;
             
             //iterate over the stockData object of objects
             for(let stock in stockData){
@@ -186,6 +253,7 @@ const ItemCtrl = (function(){
             for(let i = 0; i< normalizedArr[0].length; i++){
                normalizedArrTotal.push(normalizedArr[0][i]+normalizedArr[1][i]+normalizedArr[2][i]+ normalizedArr[3][i]+normalizedArr[4][i]);
             }
+            
 
              trace1 = {
                     type: chartStyle,
@@ -201,7 +269,7 @@ const ItemCtrl = (function(){
                 let layout = {
                       dragmode: 'zoom', 
                       autosize: true,
-                      title: ` Normalized Price Chart`,
+                      title: ` Normalized Tech Stock Price Chart`,
                       margin: {
                         r: 10, 
                         t: 30, 
@@ -231,6 +299,7 @@ const ItemCtrl = (function(){
    
         } else {
             
+            UICtrl.displayNewsArticles(stockData.news, 'stocks');
             
             let trace1 = {},
                 volume = {},
