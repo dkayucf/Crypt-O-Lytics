@@ -37,8 +37,7 @@ Future developments will add:
 
 -   Long-term goal is to create a site which can be monetized:
 
-    -   A) users are willing to pay a monthly subscription to enable
-        customization.
+    -   A) users willing to pay a monthly subscription to enable customization.
 
     -   B) sold to originators, distributors and/or users of chart-able
         information to integrate into their solutions.
@@ -47,7 +46,7 @@ Future developments will add:
 
 **TECHNOLOGIES**
 
--   Iextrading API
+-   iextrading API
 
 -   Cryptocompare API
 
