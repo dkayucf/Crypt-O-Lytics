@@ -19,7 +19,8 @@ Future developments will add:
 
 2.  assign relative weights to whichever combination they may choose.
 
-3.  Chart overlays in addition to side-by-side comparisons.
+3.  Chart ratio of two or more items in a single chart to supplemet side-by-side
+    comparisons.
 
 4.  Add additional indices such as Baker-Hughes Rig Count, Case-Shiller Home
     Price Indices and perhaps privately-developed indices from the likes Gartner
@@ -30,6 +31,29 @@ Future developments will add:
 6.  Add news articles and headlines specific to the charted items or
     user-selectable.
 
+7.  As additional market-driven details become available, the could become a
+    tool for charting, and possibly predicting, trends in prices, relative
+    prices, demand &/or almost any ratio or relationship users can imagine.
+
+-   Long-term goal is to create a site which can be monetized:
+
+    -   A) users willing to pay a monthly subscription to enable customization.
+
+    -   B) sold to originators, distributors and/or users of chart-able
+        information to integrate into their solutions.
+
+    -   C) generates sufficient traffic to attract advertisers.
+
 **TECHNOLOGIES**
 
+-   iextrading API
+
+-   Cryptocompare API
+
 -   Plotly.js for charting
+
+-   Google fonts
+
+-   Bootstrap 4
+
+-   Javascript
