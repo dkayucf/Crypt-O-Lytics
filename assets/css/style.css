@@ -124,12 +124,21 @@ span {
   text-decoration: none;
 }
 
+.modal-dialog {
+    max-width: 550px;
+    margin: 1.75rem auto;
+}
+
+.panel-title>.addChevron, .panel-title>.addChevron:active{
+    text-decoration:none;
+
 .panel-heading .addChevron:before {
   display: inline-block;
   font-style: normal;
   font-variant: normal;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
+
 }
 
 .panel-heading .addChevron:before {
@@ -148,6 +157,10 @@ span {
 .custom-select:disabled {
   color: #000000;
   background-color: #6c757d;
+}
+
+.form-control:disabled {
+    background-color: #6c757d;
 }
 
 /* CHARTS */
