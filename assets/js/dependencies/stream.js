@@ -41,7 +41,7 @@ $(document).ready(function() {
 	};
 
 	var displayData = function(current, from, tsym, fsym) {
-		console.log(current);
+		//console.log(current);
 		var priceDirection = current.FLAGS;
 		for (var key in current) {
 			if (key == 'CHANGE24HOURPCT') {

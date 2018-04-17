@@ -19,11 +19,33 @@ a {
 }
 
 a:hover {
-    color: #f8f9fa;
+    color: #ffffff;
     text-decoration: none;
 }
 
-h5 {
+p{
+    font-size: 12px
+}
+
+.newsHeadline {
+    color: #ffc107;
+    font-size: 16px;
+}
+
+.newsSummary {
+    text-align: justify;
+    text-justify: inter-word;    
+}
+
+/*
+.stockChartNews{
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+*/
+
+.chartHeadings{
     font-size: 14px;
     color: #7EB723;
     text-transform: uppercase;
@@ -53,7 +75,7 @@ h5 {
 
 /* SIDE NAV */
 #sideBarCol {
-    height: 100vh;
+    height: 1000px;
 }
 
 
@@ -99,11 +121,14 @@ div#tickerTape {
 }
 
 .up {
-		color: green;
+    color: green;
+    font-weight: bold;
+    
 	}
 
 .down {
     color: red;
+    font-weight: bold;
 }
 
 span {

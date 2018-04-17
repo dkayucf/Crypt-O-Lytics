@@ -12,27 +12,47 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     //Draw Currency Chart Submit Click
     document.querySelector(UISelectors.drawCurrChartBtn).addEventListener("click", drawCurrChart);
       
-    //Navbar menu click
-    document.querySelector(UISelectors.cardHeader).addEventListener('click', (e)=>{
-        UICtrl.toggleMenuState(e.target);
-    });
-      
     document.querySelector(UISelectors.quickQuoteBtn).addEventListener('click', displayQuote);
 
     /*----------------CHANGE Events-----------------*/
     document.querySelector(UISelectors.techCompSelect).addEventListener("change", () => {
         const getStockSelects = UICtrl.getStockSelects();
         
-        if (getStockSelects.stockSymbol == "stockWeightAvg") {
-           document.querySelector(UISelectors.stockWeightAvg).style.display = "block";
-            let stockChartStyle = document.querySelector(UISelectors.stockChartStyle);
-            stockChartStyle.disabled = true;
-            stockChartStyle.value = 'scatter';
-            
-        } else {
-          document.querySelector(UISelectors.stockWeightAvg).style.display = "none";
-        }
+            if (getStockSelects.stockSymbol == "stockWeightAvg") {
+               document.querySelector(UISelectors.stockWeightAvg).style.display = "block";
+                let stockChartStyle = document.querySelector(UISelectors.stockChartStyle);
+                stockChartStyle.disabled = true;
+                stockChartStyle.value = 'scatter';
+
+            } else {
+                document.querySelector(UISelectors.stockWeightAvg).style.display = "none";
+                let stockChartStyle = document.querySelector(UISelectors.stockChartStyle);
+                stockChartStyle.disabled = false;
+                stockChartStyle.selectedIndex=0;
+                document.querySelector(UISelectors.techTimeFrame).selectedIndex = 0;
+            }
       });
+      
+      
+      document.querySelector(UISelectors.cryptoCurrSelect).addEventListener("change", () => {
+        const getCurrSelects = UICtrl.getCurrChart();
+        
+            if (getCurrSelects.cryptoCurrency == "currWeightAvg") {
+               document.querySelector(UISelectors.cryptoWeightAvg).style.display = "block";
+                let currChartStyle = document.querySelector(UISelectors.cryptoChartStyle);
+                currChartStyle.disabled = true;
+                currChartStyle.value = 'scatter';
+
+            } else {
+                document.querySelector(UISelectors.cryptoWeightAvg).style.display = "none";
+                let currChartStyle = document.querySelector(UISelectors.cryptoChartStyle);
+                currChartStyle.disabled = false;
+                currChartStyle.selectedIndex=0;
+                document.querySelector(UISelectors.cryptoTimeFrame).selectedIndex = 0;
+            }
+      });
+      
+      
       
       document.querySelector(UISelectors.techTimeFrame).addEventListener("change", () => {
         const getStockSelects = UICtrl.getStockSelects();
@@ -52,51 +72,89 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
     });
   };
 
-  const drawCurrChart = function() {
-    const getCurrSelects = UICtrl.getCurrChart();
+    const drawCurrChart = function() {
+        const getCurrSelects = UICtrl.getCurrChart();
 
-    const chartStyle = UICtrl.getChartStyle(UISelectors.cryptoChartStyle);
-      
-    let url,
-        startTime,
-        dateNow = new Date(),
-        dateNowISO = dateNow.toISOString();
+        const chartStyle = UICtrl.getChartStyle(UISelectors.cryptoChartStyle);
 
-      switch(getCurrSelects.cryptoCurrTimeFrame) {
-            case '1YRS':
-                startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 12)).toISOString();
-                break;
-            case '6MTH':
-                startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 6)).toISOString();
-                break;
-            case '3MTH':
-                startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 3)).toISOString();
-                break;
-            case '1MTH':
-                startTime = new Date(dateNow.setMonth( dateNow.getMonth() - 1)).toISOString();
-                break;
-        }  
+        let url,
+            limit,
+            dateNow = new Date(),
+            dateNowISO = dateNow.toISOString(),
+            coinsArray = ['BTC', 'ETH', 'XRP', 'BCH', 'LTC'];
 
-    if (getCurrSelects.cryptoCurrency == "currWeightAvg") {
-        
-    } else {
+          switch(getCurrSelects.cryptoCurrTimeFrame) {
+                case '1YRS':
+                    limit = 365;
+                    break;
+                case '6MTH':
+                    limit = 183;
+                    break;
+                case '3MTH':
+                    limit = 91;
+                    break;
+                case '1MTH':
+                    limit = 30;
+                    break;
+            }  
 
-        url = `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_${getCurrSelects.cryptoCurrency}_USD/history?period_id=1DAY&time_start=${startTime}&time_end=${dateNowISO}&market=USD&limit=366&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`;
-    }
+        if (getCurrSelects.cryptoCurrency == "currWeightAvg") {
+                      
+           let coinsDataArr = [];
+                coinsArray.forEach(coin=>{
+                    
+                    let url = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=USD&limit=${limit}`;
+                
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        crossDomain: true,
+                    }).then(function(currencyData) {
 
-    $.ajax({
-        url: url,
-        method: "GET",
-        crossDomain: true,
-    }).then(function(currencyData) {
+                        currencyData = currencyData.Data;
 
-        document.querySelector(UISelectors.currChartCard).style.display = "block";
+                         currencyData.forEach(datum=>{
+                             datum.time = new Date(datum.time*1000).toISOString().split('T')[0]; 
+                         });
 
-        ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
-    });
+                        coinsDataArr.push(currencyData);
 
-    //UICtrl.resetSelects();
+                        ItemCtrl.mapCurrData(coinsDataArr, chartStyle, getCurrSelects)
+                        document.querySelector(UISelectors.currChartCard).style.display = 'block';
+                        document.querySelector('.movingAverage').disabled = false;
+                        document.querySelector('.upperIndicators').disabled = false;
+                    });    
+                    
+                });
+                
+
+            
+            
+        } else {
+
+            url = `https://min-api.cryptocompare.com/data/histoday?fsym=${getCurrSelects.cryptoCurrency}&tsym=USD&limit=${limit}`;
+            
+            $.ajax({
+                url: url,
+                method: "GET",
+                crossDomain: true,
+            }).then(function(currencyData) {
+                currencyData = currencyData.Data;
+
+                document.querySelector(UISelectors.currChartCard).style.display = "block";
+
+                 currencyData.forEach(datum=>{
+                     datum.time = new Date(datum.time*1000).toISOString().split('T')[0]; 
+                 });
+
+                ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
+
+            });
+            
+        }
+
   };
+    
 
   const drawStockChart = function() {
       
@@ -128,7 +186,7 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
       ItemCtrl.mapStockData(stockData, chartStyle, getStockSelects);
     });
 
-    //UICtrl.resetSelects();
+
   };
     
     const displayQuote = function(){
@@ -160,7 +218,6 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
             },
             getCurrSelects = {
                 cryptoCurrency: 'BTC',
-                cryptoCurrTimeFrame: '1YRS',
                 cryptoName: 'Bitcoin'
             },
             dateNow = new Date(),
@@ -179,11 +236,11 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
         }); 
         
         $.ajax({
-        url: `https://cors-anywhere.herokuapp.com/rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_${getCurrSelects.cryptoCurrency}_USD/history?period_id=1DAY&time_start=${startTime}&time_end=${dateNowISO}&market=USD&limit=366&apikey=6B99D9DD-9C41-4AF9-8BF0-7BB6F3DB0A5D`,
+        url: `https://min-api.cryptocompare.com/data/histoday?fsym=${getCurrSelects.cryptoCurrency}&tsym=USD&limit=365`,
         method: "GET",
         crossDomain: true,
     }).then(function(currencyData) {
-
+            currencyData = currencyData.Data;
         document.querySelector(UISelectors.currChartCard).style.display = "block";
 
         ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
@@ -203,3 +260,5 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
 
 
 AppCtrl.init();
+
+
