@@ -23,34 +23,13 @@ a:hover {
     text-decoration: none;
 }
 
-p{
-    font-size: 12px
-}
-
-.newsHeadline {
-    color: #ffc107;
-    font-size: 16px;
-}
-
-.newsSummary {
-    text-align: justify;
-    text-justify: inter-word;    
-}
-
-/*
-.stockChartNews{
-    position: relative;
-    height: 400px;
-    overflow: hidden;
-}
-*/
-
-.chartHeadings{
-    font-size: 14px;
-    color: #7EB723;
-    text-transform: uppercase;
-    margin: 10px 0;
-}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin: 40px 20px 30px 20px;
+    border: 0;
+    border-top: 1px solid #343a40;
+  }
 
 /* TOP NAV */
 #cl-logo {
@@ -63,26 +42,7 @@ p{
     border-bottom: 1px solid #000;
 }
 
-#stock-ticker {
-    background-image:
-    linear-gradient(
-        to right,
-      rgb(0, 0, 0),
-      #25282b
-    );
-    border-bottom: 1px solid #343a40;
-}
-
-/* SIDE NAV */
-#sideBarCol {
-    height: 1000px;
-}
-
-
-#currChartCard{
-    display: none;
-}
-
+/* TICKER TAPE */
 .taiwanLabel{
     white-space: nowrap
 }
@@ -118,6 +78,7 @@ p{
 
 div#tickerTape {
     background-color: #EBF0F1;
+    height: 40px;
 }
 
 .up {
@@ -131,8 +92,23 @@ div#tickerTape {
     font-weight: bold;
 }
 
+.price-display {
+    margin: 20px 0;
+}
+
 span {
     margin: 0 7px;
+}
+
+/* SIDE NAV */
+#sideBarCol {
+    height: 2000px;
+    background-image:
+    linear-gradient(
+      to top right, 
+      #343a40, rgb(0, 0, 0)
+    );
+    border-right: 1px solid #343a40;
 }
 
 .display-4 {
@@ -142,16 +118,6 @@ span {
 #logo {
     height: 50%;
     width: 50%;
-}
-
-#sideBarCol {
-    background-image:
-    linear-gradient(
-      to top right, 
-      #343a40, rgb(0, 0, 0)
-    );
-    border-right: 1px solid #343a40;
-
 }
 
 .panel-title>.addChevron, .panel-title>.addChevron:active{
@@ -185,6 +151,17 @@ span {
 }
 
 /* CHARTS */
+#currChartCard{
+    display: none;
+}
+
+.chartHeadings { 
+    font-size: 14px;
+    color: #7EB723;
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+
 #stockWeightAvg{
     display: none;
 }
@@ -220,4 +197,27 @@ span {
 #logo {
     height: 50%;
     width: 50%;
+}
+
+/* NEWS */
+#news-heading { 
+    font-size: 14px;
+    color: #7EB723;
+    text-transform: uppercase;
+    margin: 0 0 20px 50px;
+}
+
+p {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.newsHeadline {
+    color: #FFC060;
+    font-size: 16px;
+}
+
+.newsSummary {
+    text-align: justify;
+    text-justify: inter-word;    
 }
