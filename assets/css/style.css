@@ -1,223 +1,236 @@
 /* GLOBAL */
 .container-fluid {
-    font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
 }
 
 #main-content-body {
-    background-image:
-    linear-gradient(
-      to bottom right, 
-      rgb(0, 0, 0),
-      #25282b,
-      #343a40
-    );
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(0, 0, 0),
+    #25282b,
+    #343a40
+  );
 }
 
 a {
-    color: #f8f9fa;
-    text-decoration: none; /* no underline */
+  color: #f8f9fa;
+  text-decoration: none; /* no underline */
 }
 
 a:hover {
-    color: #ffffff;
-    text-decoration: none;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin: 40px 20px 30px 20px;
-    border: 0;
-    border-top: 1px solid #343a40;
-  }
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin: 40px 20px 30px 20px;
+  border: 0;
+  border-top: 1px solid #343a40;
+}
 
 /* TOP NAV */
 #cl-logo {
-    height: 65%;
-    width: 65%;
-    margin: 0 20px;
+  height: 65%;
+  width: 65%;
+  margin: 0 20px;
 }
 
 .navbar {
-    border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 
 /* TICKER TAPE */
-.taiwanLabel{
-    white-space: nowrap
+.taiwanLabel {
+  white-space: nowrap;
 }
 
-#bitcoinIcon{
-    width: 8%;
-    fill: #FF9900;
+#bitcoinIcon {
+  width: 8%;
+  fill: #ff9900;
 }
 
 #etheriumIcon {
-    width: 8%;
-    fill: #3c3c3d;
+  width: 8%;
+  fill: #3c3c3d;
 }
 
 #rippleIcon {
-    width: 8%;
-    fill: #006097;
+  width: 8%;
+  fill: #006097;
 }
 
 #bchIcon {
-    width: 8%;
-    fill: #ee8c28;
+  width: 8%;
+  fill: #ee8c28;
 }
 
 #xlmIcon {
-    width: 8%;
+  width: 8%;
 }
 
 #liteIcon {
-    width: 8%;
-    fill: #d3d3d3;
+  width: 8%;
+  fill: #d3d3d3;
 }
 
 div#tickerTape {
-    background-color: #EBF0F1;
-    height: 40px;
+  background-color: #ebf0f1;
+  height: 40px;
 }
 
 .up {
-    color: green;
-    font-weight: bold;
-    
-	}
+  color: green;
+  font-weight: bold;
+}
 
 .down {
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 
 .price-display {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 span {
-    margin: 0 7px;
+  margin: 0 7px;
 }
 
 /* SIDE NAV */
 #sideBarCol {
-    height: 2000px;
-    background-image:
-    linear-gradient(
-      to top right, 
-      #343a40, rgb(0, 0, 0)
-    );
-    border-right: 1px solid #343a40;
+  height: 1750px;
+  background-image: linear-gradient(to top right, #343a40, rgb(0, 0, 0));
+  border-right: 1px solid #343a40;
 }
 
 .display-4 {
-    z-index: 2;
+  z-index: 2;
 }
 
 #logo {
-    height: 50%;
-    width: 50%;
+  height: 50%;
+  width: 50%;
 }
 
-.panel-title>.addChevron, .panel-title>.addChevron:active{
-    text-decoration:none;
+.panel-title > .addChevron,
+.panel-title > .addChevron:active {
+  text-decoration: none;
 }
 
-.panel-heading  .addChevron:before {
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
+.panel-heading .addChevron:before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
 }
 
-.panel-heading  .addChevron:before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    content: "\f077";
-    float: right;
-    transition: all 0.5s;
+.panel-heading .addChevron:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f077";
+  float: right;
+  transition: all 0.5s;
 }
-.panel-heading.active  .addChevron:before {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    transform: rotate(180deg);
-} 
+.panel-heading.active .addChevron:before {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
 
 .custom-select:disabled {
-    color: #000000;
-    background-color: #6c757d;
+  color: #000000;
+  background-color: #6c757d;
 }
 
 /* CHARTS */
-#currChartCard{
-    display: none;
+#currChartCard {
+  display: none;
 }
 
-.chartHeadings { 
-    font-size: 14px;
-    color: #7EB723;
-    text-transform: uppercase;
-    margin: 10px 0;
+.chartHeadings {
+  font-size: 14px;
+  color: #7eb723;
+  text-transform: uppercase;
+  margin: 10px 0;
 }
 
-#stockWeightAvg{
-    display: none;
+#stockWeightAvg {
+  display: none;
 }
 
-#cryptoWeightAvg{
-    display: none;
+#cryptoWeightAvg {
+  display: none;
 }
 
-#stockChartPlot{
-    height: 500px;
+#stockChartPlot {
+  height: 500px;
 }
 
-#stockChartCard{
-    display: none;
+#stockChartCard {
+  display: none;
 }
 
-#currChartPlot{
-    height: 500px;
+#currChartPlot {
+  height: 500px;
 }
 
-#currChartCard{
-    display: none;
+#currChartCard {
+  display: none;
 }
 
-.taiwanLabel{
-    white-space: nowrap
+.taiwanLabel {
+  white-space: nowrap;
 }
 
 .display-4 {
-    z-index: 2;
+  z-index: 2;
 }
 
 #logo {
-    height: 50%;
-    width: 50%;
+  height: 50%;
+  width: 50%;
 }
 
 /* NEWS */
-#news-heading { 
-    font-size: 14px;
-    color: #7EB723;
-    text-transform: uppercase;
-    margin: 0 0 20px 50px;
+#news-heading {
+  font-size: 14px;
+  color: #7eb723;
+  text-transform: uppercase;
+  margin: 0 0 20px 50px;
 }
 
 p {
-    font-size: 13px;
-    line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .newsHeadline {
-    color: #FFC060;
-    font-size: 16px;
+  color: #ffc060;
+  font-size: 16px;
 }
 
 .newsSummary {
-    text-align: justify;
-    text-justify: inter-word;    
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* FOOTER */
+.footer {
+  height: 50px;
+  border-top: 1px solid #343a40;
+  text-align: center;
+  background-image: linear-gradient(
+    to top right,
+    rgb(0, 0, 0),
+    #25282b
+  );
+}
+
+#footer-text {
+  color: #7eb723;
+  padding: 15px 0 0 0;
+  margin: 0;
 }
