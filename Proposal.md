@@ -3,7 +3,7 @@ Crypt-O-Keepers
 
 ### Team Name
 
-CryptKeepers
+CryptKeepers--- Crypt-O-Lytics
 
 ### Team Members
 
@@ -19,11 +19,11 @@ CryptKeepers
 
 -   Darren (Backend)
 
--   Kevin (Front End/Back End Support)
+-   Kevin (Concept /Data Normalization /Front End/Back End Support)
 
 ### Project Title
 
-Bitcoin Bits n' Pieces
+Bitcoin Bits n' Pieces –Crypt-O-Lytics
 
 ### Project Description
 
