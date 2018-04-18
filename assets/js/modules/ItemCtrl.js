@@ -16,16 +16,99 @@ const ItemCtrl = (function () {
             });
 
         },
-        techinalIndicatorData: function(closeData, date, chartStyle, getSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, chartType){
-            smaUserInput = parseInt(smaUserInput);
+        techinalIndicatorData: function(data, date, chartStyle, getSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, chartType, upperData){
 
-           // console.log(closeData, chartStyle, getSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex);
-//            console.log(closeData);
-            let sma = ItemCtrl.calculateSMA(closeData, smaUserInput);
-            console.log(closeData, sma)
-            UICtrl.drawSMA(sma, date, chartType);
+                let closeData = data.map(datum=> datum.close);
+            if (chartType == 'Stock') {
+                let annotations = [],
+                    yArr = [],
+                    yAxis,
+                    xAxis,
+                    entityName = getSelects.stockName;
+                switch (upperSelectedIndex) {
+                    case 'Split':
+                        
+                        break;
+                    case 'Earnings':
+                            upperData.earnings.map(datum=> datum.EPSReportDate).forEach(x=>{
+                                date.map((y, index)=>{
+                                    
+                                    if(x == y){
+                                        console.log(index)
+                                        yArr.push(index);
+                                    }
+                                })
+                            });
+                            //console.log(yArr);
+                            yAxis = yArr.map(y=>{
+                                    return closeData[y];
+                                });
+                        
+                            xAxis = upperData.earnings.map(x=> x.EPSReportDate);
+                            for(let i =0; i<yAxis.length; i++){
+                                annotations.push({
+                                    x: xAxis[i],
+                                    y: yAxis[i],
+                                    xref: 'x',
+                                    yref: 'y',
+                                    text: `${upperSelectedIndex}`,
+                                    showarrow: true,
+                                    arrowhead: 7,
+                                    ax: 0,
+                                    ay: -40
+                                });
+                            }
+                            Plotly.purge('stockChartPlot');
+                        
+                            UICtrl.drawChart(data, chartStyle, entityName, chartType, annotations);
+                        break;
+                    case 'Dividend':
+                            upperData.map(datum=> datum.recordDate).forEach(x=>{
+                                date.map((y, index)=>{
+                                    if(x == y){
+                                        yArr.push(index);
+                                    }
+                                })
+                            });
+                            yAxis = yArr.map(y=>{
+                                    return closeData[y];
+                                });
+
+                            xAxis = upperData.map(x=> x.recordDate);
+
+                            for(let i =0; i<yAxis.length; i++){
+                                annotations.push({
+                                    x: xAxis[i],
+                                    y: yAxis[i],
+                                    xref: 'x',
+                                    yref: 'y',
+                                    text: `${upperSelectedIndex}`,
+                                    showarrow: true,
+                                    arrowhead: 7,
+                                    ax: 0,
+                                    ay: -40
+                                });
+                            }
+
+                            Plotly.purge('stockChartPlot');
+                            
+                            UICtrl.drawChart(data, chartStyle, entityName, chartType, annotations);
+                        break;
+                }    
+            }
             
         },
+        smaData: function(data, date, chartStyle, getSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, chartType, upperData){
+            smaUserInput = parseInt(smaUserInput);
+
+                let closeData = data.map(datum=> datum.close);
+            
+            let sma = ItemCtrl.calculateSMA(closeData, smaUserInput);
+
+            UICtrl.drawSMA(sma, date, chartType, smaUserInput);
+            
+        },
+        
         mapCurrData: function (currData, chartStyle, getCurrSelects) {
 
             Plotly.purge('currChartPlot');
@@ -38,15 +121,15 @@ const ItemCtrl = (function () {
                         dateArr = [];
 
                     currData.forEach((datum, index, arr) => {
-                        //console.log(datum)
+                        
                         const openRatio = 1 / datum[0].open;
                         const closingRatio = 1 / datum[0].close;
                         const highRatio = 1 / datum[0].high;
                         const lowRatio = 1 / datum[0].low;
-                        //console.log(`Closing: ${closingRatio}, Open: ${openRatio}, High: ${highRatio}, Low: ${lowRatio}`);
 
                         let open = datum.map(x => (x.open * openRatio));
                         let date = datum.map(x => x.time);
+                        
                         normalizedArr.push(open);
                         dateArr.push(date);
                     });
@@ -64,7 +147,7 @@ const ItemCtrl = (function () {
             } else {
 
                 let entityName = getCurrSelects.cryptoName;
-
+                
                 UICtrl.drawChart(currData, chartStyle, entityName, 'Crypto Currency');
 
 
@@ -97,7 +180,6 @@ const ItemCtrl = (function () {
                     const openRatio = 1 / stockData[stock].chart[0].open;
                     const highRatio = 1 / stockData[stock].chart[0].high;
                     const lowRatio = 1 / stockData[stock].chart[0].low;
-                    //console.log(`Closing: ${closingRatio}, Open: ${openRatio}, High: ${highRatio}, Low: ${lowRatio}`);
 
                     //Map each open value and multiply by the ratio above
                     let open = stockData[stock].chart.map(x => (x.open * openRatio));

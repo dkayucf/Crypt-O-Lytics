@@ -181,11 +181,13 @@ const UICtrl = (function () {
 
 
         },
-        drawSMA: function(closeData, date, chartType){
+        
+        drawSMA: function(closeData, date, chartType, smaUserInput){
+            
+
             let trace1,
                 data,
                 volume;
-            
             trace1 = {
                         type: 'scatter',
                         mode: "lines",
@@ -193,7 +195,8 @@ const UICtrl = (function () {
                         y: closeData,
                         line: {
                             color: '#ff0000'
-                        }
+                        },
+                        name: `${smaUserInput}-Day SMA`,
                     };
             
             
@@ -225,19 +228,19 @@ const UICtrl = (function () {
                     }
                 };
             
-            if (chartType == 'crypto') {
+            if (chartType == 'Crypto Currency') {
 
                     Plotly.plot('currChartPlot', data, layout);
 
-                } else if (chartType == 'stock') {
+                } else if (chartType == 'Stock') {
 
                     Plotly.plot('stockChartPlot', data, layout);
 
                 }
             
         },
-        drawChart: function (entityData, chartStyle, entityName, chartType) {
-            
+        drawChart: function (entityData, chartStyle, entityName, chartType, annotations) {
+
             let trace1,
                 data,
                 volume;
@@ -300,6 +303,7 @@ const UICtrl = (function () {
                         l: 40
                     },
                     showlegend: false,
+                    annotations: annotations,
                     xaxis: {
                         autorange: true,
                         domain: [0, 1],
@@ -335,7 +339,7 @@ const UICtrl = (function () {
 
                 }
 
-
+                //End of Line Plots (Scatter plots)
             } else {
 
                 if (chartType == 'Crypto Currency') {
@@ -346,13 +350,15 @@ const UICtrl = (function () {
                         decreasing: {
                             line: {
                                 color: '#7F7F7F'
-                            }
+                            },
+                            name: `${entityName} Decreasing`,
                         },
                         high: entityData.map(datum => datum.high),
                         increasing: {
                             line: {
                                 color: '#17BECF'
-                            }
+                            },
+                            name: `${entityName} Increasing`,
                         },
                         line: {
                             color: 'rgba(31,119,180,1)'
@@ -367,9 +373,10 @@ const UICtrl = (function () {
                     volume = {
                         x: entityData.map(datum => datum.time),
                         y: entityData.map(datum => datum.volumeto),
-                        xaxis: 'x2',
+                        xaxis: 'x',
                         yaxis: 'y2',
-                        type: 'bar'
+                        type: 'bar',
+                        name: 'Volume'
                     };
 
                 } else if (chartType == 'Stock') {
@@ -380,13 +387,15 @@ const UICtrl = (function () {
                         decreasing: {
                             line: {
                                 color: '#7F7F7F'
-                            }
+                            },
+                            name: `${entityName} Decreasing`,
                         },
                         high: entityData.map(datum => datum.high),
                         increasing: {
                             line: {
                                 color: '#17BECF'
-                            }
+                            },
+                            name: `${entityName} Increasing`,
                         },
                         line: {
                             color: 'rgba(31,119,180,1)'
@@ -401,9 +410,10 @@ const UICtrl = (function () {
                     volume = {
                         x: entityData.map(datum => datum.date),
                         y: entityData.map(datum => datum.volume),
-                        xaxis: 'x2',
+                        xaxis: 'x',
                         yaxis: 'y2',
-                        type: 'bar'
+                        type: 'bar',
+                        name: 'Volume'
                     };
 
                 }
@@ -420,7 +430,16 @@ const UICtrl = (function () {
                         b: 30,
                         l: 40
                     },
-                    showlegend: false,
+                    showlegend: true,
+                    legend: {
+                        orientation: 'h',
+                        traceorder:	'normal',
+                        x: 0.5,
+                        xanchor: 'center',
+                        y: 1.1,
+                        yanchor: 'top'
+                    },
+                    annotations: annotations,
                     xaxis: {
                         autorange: true,
                         domain: [0, 1],
@@ -428,7 +447,33 @@ const UICtrl = (function () {
                         rangeslider: {
                             visible: false
                         },
-                        type: 'date'
+                        type: 'date',
+                        title: `Volume`,
+                        rangeselector: {
+                            x: 0,
+                            y: 1.2,
+                            xanchor: 'left',
+                            font: {size:8},
+                            buttons: [{
+                                step: 'month',
+                                stepmode: 'backward',
+                                count: 1,
+                                label: '1 month'
+                            }, {
+                                step: 'month',
+                                stepmode: 'backward',
+                                count: 3,
+                                label: '3 month'
+                            }, {
+                                step: 'month',
+                                stepmode: 'backward',
+                                count: 6,
+                                label: '6 months'
+                            }, {
+                                step: 'all',
+                                label: 'All dates'
+                            }]
+                          }
                     },
                     yaxis: {
                         autorange: true,
