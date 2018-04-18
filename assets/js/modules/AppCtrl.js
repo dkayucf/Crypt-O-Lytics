@@ -6,6 +6,18 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
     //***********************EVENT LISTENTERS**************************//
     const loadEventListeners = () => {
 
+        document.querySelector(UISelectors.quickQuoteInput).addEventListener('keypress', (e)=>{
+            if(e.charCode === 13){
+                displayQuote();    
+            }
+        });
+        
+        $(document).keypress(function(e) {
+            if(e.which == 13) {
+                e.preventDefault();
+            }
+        });
+        
         /*----------------CLICK Events-----------------*/
         //Draw Stock Chart Submit Click
         document.querySelector(UISelectors.drawStockChartBtn).addEventListener("click", drawStockChart);
@@ -134,11 +146,11 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
                     datum.time = new Date(datum.time * 1000).toISOString().split('T')[0];
                 });
 
-                
-                let closeData = currencyData.map(datum=> datum.close);
                 let date = currencyData.map(datum => datum.time);
                 
-                ItemCtrl.techinalIndicatorData(closeData, date, currencyChartStyle, getCurrSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, 'crypto');
+                ItemCtrl.techinalIndicatorData(currencyData, date, currencyChartStyle, getCurrSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, 'Crypto Currency');
+                
+                ItemCtrl.smaData(currencyData, date, currencyChartStyle, getCurrSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, 'Crypto Currency');
 
             });    
         }
@@ -150,13 +162,39 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
                 url: url,
                 method: "GET"
             }).then(function (stockData) {
+
                 stockData = stockData.chart;
                 
-                let closeData = stockData.map(datum=> datum.close);
                 let date = stockData.map(datum => datum.date);
                 
-                ItemCtrl.techinalIndicatorData(closeData, date, stockChartStyle, getStockSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, 'stock');
+                    if(upperSelectedIndex !== 'none'){
+                        switch (upperSelectedIndex) {
+                            case 'Split':
+                                url = `https://api.iextrading.com/1.0/stock/${getStockSelects.stockSymbol}/splits/${getStockSelects.stockTimeFrame}`;
+                                break;
+                            case 'Earnings':
+                                url = `https://api.iextrading.com/1.0/stock/${getStockSelects.stockSymbol}/earnings`;
+                                break;
+                            case 'Dividend':
+                                url = `https://api.iextrading.com/1.0/stock/${getStockSelects.stockSymbol}/dividends/${getStockSelects.stockTimeFrame}`;
+                                break;
+                        }
+
+                        $.ajax({
+                            url: url,
+                            method: "GET"
+                        }).then(function (upperData) {
+                            
+                            ItemCtrl.techinalIndicatorData(stockData, date, stockChartStyle, getStockSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, 'Stock', upperData);
+                            
+                            ItemCtrl.smaData(stockData, date, stockChartStyle, getStockSelects, smaSelectedIndex, smaUserInput, upperSelectedIndex, 'Stock', upperData);
+                        });
+
+                    } 
+                
             });
+            
+            
         }
         
         
@@ -274,19 +312,32 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
 
     const displayQuote = function () {
 
-        let stockSymbol = document.querySelector(UISelectors.quickQuoteInput).value,
+        let userInput = document.querySelector(UISelectors.quickQuoteInput).value,
             url;
 
-        if (stockSymbol.length > 4 || stockSymbol == '') {
+        if (userInput.length > 4 || userInput == '') {
             alert('please fill in a proper stock symbol');
         } else {
-            url = `https://api.iextrading.com/1.0/stock/${stockSymbol}/quote`;
+            url = `https://api.iextrading.com/1.0/stock/${userInput}/quote`;
 
             $.ajax({
                 url: url,
-                method: "GET"
+                method: "GET",
+                error: function (jqXHR, status, error) {
+                      if(status == 'error'){
+                          url = `https://min-api.cryptocompare.com/data/top/exchanges/full?fsym=${userInput}&tsym=USD`;
+                    
+                            $.ajax({
+                                url: url,
+                                method: "GET"
+                            }).then(function (coinData) {
+                                    console.log(coinData)
+                                    //UICtrl.displayStockQuote(stockData);    
+                            });
+                      }  
+                }
             }).then(function (stockData) {
-                UICtrl.displayStockQuote(stockData);
+                    UICtrl.displayStockQuote(stockData);    
             });
         }
 
@@ -324,6 +375,11 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
             crossDomain: true,
         }).then(function (currencyData) {
             currencyData = currencyData.Data;
+            
+            currencyData.forEach(datum => {
+                datum.time = new Date(datum.time * 1000).toISOString().split('T')[0];
+            });
+            
             document.querySelector(UISelectors.currChartCard).style.display = "block";
 
             ItemCtrl.mapCurrData(currencyData, chartStyle, getCurrSelects);
