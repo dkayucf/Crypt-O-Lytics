@@ -1,3 +1,8 @@
+# Cryptolytics
+## Cryptocurrency/Tech Stock Charting Application
+
+
+
 ## Project premise: ##
 Stock market APIs support publicly-traded stocks, indices,
 most mutual funds, ETFs, ETNs and many commodities but have almost no
