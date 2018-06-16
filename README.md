@@ -1,7 +1,7 @@
 # Cryptolytics
 ## Cryptocurrency/Tech Stock Charting Application
 
-
+![cryptolytics landing page](https://github.com/dkayucf/Cryptocurrency-Stock-Charting/blob/master/assets/images/landingPage.jpg)
 
 ## Project premise: ##
 Stock market APIs support publicly-traded stocks, indices,
@@ -52,7 +52,7 @@ Future developments will add:
 
 ## TECHNOLOGIES ##
 
-*   iextrading API
+*   IEXtrading API
 
 *   Cryptocompare API
 
@@ -62,4 +62,6 @@ Future developments will add:
 
 *   Bootstrap 4
 
-*   Javascript
+*   Vanilla Javascript (Module Revealing Pattern)
+
+*   Websockets
